@@ -141,7 +141,8 @@ int work(){
     unsigned int stream_index;
     unsigned int i;
     const char *url = "file:/tmp/vcbr.mp4";
-    if ((ret = open_input_file(url)) < 0)
+    ret = open_input_file(url)
+    if (ret < 0)
     {
         logging("ERROR open_input_file")
     }
