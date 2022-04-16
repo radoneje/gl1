@@ -138,7 +138,7 @@ int main( void )
         //glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
         glDisableVertexAttribArray(0);
-
+        glDisableVertexAttribArray(1);
 		// Swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
