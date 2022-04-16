@@ -91,13 +91,7 @@ float i=-0.5f;
         //printf( std::to_string(1) );
         std::cout << "I: " << std::to_string(i) << "\r\n";
         glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-        g_vertex_buffer_data[] = {
-                -1.0f, -1.0f, 0.0f,
-                -1.0f ,1.0f, 0.0f,
-                0.0f,0.0f, 0.0f,
 
-        };
-        glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
 		// Clear the screen
 		glClear( GL_COLOR_BUFFER_BIT );
