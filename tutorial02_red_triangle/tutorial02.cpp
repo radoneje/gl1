@@ -105,6 +105,10 @@ int main( void )
         // print its name, id and bitrate
         logging("\tCodec %s ID %d bit_rate %lld", pLocalCodec->name, pLocalCodec->id, pLocalCodecParameters->bit_rate);
     }
+    if (video_stream_index == -1) {
+        logging("File %s does not contain a video stream!", argv[1]);
+        return -1;
+    }
 
 
     // Initialise GLFW
