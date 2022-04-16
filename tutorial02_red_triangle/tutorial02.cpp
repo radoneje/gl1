@@ -45,9 +45,24 @@ int main( void )
         printf("ERROR could not open the file");
         return -1;
     }
-    std::cout<< "format: "<< pFormatContext->iformat->name << "; duration" << pFormatContext->duration << "; bit_rate" << pFormatContext->bit_rate;
+    std::cout<< "format: "<< pFormatContext->iformat->name << "; duration" << pFormatContext->duration << "; bit_rate" << pFormatContext->bit_rate << "\n";
 
-	// Initialise GLFW
+    logging("finding stream info from format");
+    // read Packets from the Format to get stream information
+    // this function populates pFormatContext->streams
+    // (of size equals to pFormatContext->nb_streams)
+    // the arguments are:
+    // the AVFormatContext
+    // and options contains options for codec corresponding to i-th stream.
+    // On return each dictionary will be filled with options that were not found.
+    // https://ffmpeg.org/doxygen/trunk/group__lavf__decoding.html#gad42172e27cddafb81096939783b157bb
+    if (avformat_find_stream_info(pFormatContext,  NULL) < 0) {
+        logging("ERROR could not get the stream info");
+        return -1;
+    }
+
+
+    // Initialise GLFW
 	if( !glfwInit() )
 	{
 		fprintf( stderr, "Failed to initialize GLFW\n" );
@@ -197,5 +212,14 @@ int main( void )
 	glfwTerminate();
 
 	return 0;
+}
+static void logging(const char *fmt, ...)
+{
+    va_list args;
+    fprintf( stderr, "LOG: " );
+    va_start( args, fmt );
+    vfprintf( stderr, fmt, args );
+    va_end( args );
+    fprintf( stderr, "\n" );
 }
 
