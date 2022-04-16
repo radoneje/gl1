@@ -188,12 +188,14 @@ static int open_input_file(const char *filename)
 
 int work(){
     int ret;
-    AVPacket packet = NULL;
+    AVPacket *packet;
     unsigned int stream_index;
     unsigned int i;
     const char *url = "/tmp/vcbr.mp4";
 
     ifmt_ctx = NULL;
+    packet = av_packet_alloc();
+
     AVFormatContext *pAVFormatContext = NULL;
     if ( avformat_open_input(&pAVFormatContext, url, NULL, NULL))< 0) {
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
@@ -203,7 +205,7 @@ int work(){
 
     av_log(NULL, AV_LOG_INFO, "before while\n");
     while (1) {
-        int ret = av_read_frame(pAVFormatContext, &packet);
+        int ret = av_read_frame(pAVFormatContext, packet);
         if (ret < 0) {
             av_log(NULL, AV_LOG_ERROR, "Cannot open av_read_frame file\n");
             return 1;
