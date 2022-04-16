@@ -99,8 +99,8 @@ int main( void )
 
 		// Draw the triangle !
 		//glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
-        glLineWidth(5);
-        glDrawArrays(GL_LINES, 0, 4);
+       // glLineWidth(5);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
         glDisableVertexAttribArray(0);
 
