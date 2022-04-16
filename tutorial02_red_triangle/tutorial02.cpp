@@ -150,6 +150,7 @@ int main( void )
 
     int response = 0;
     int how_many_packets_to_process = 8;
+    logging("how_many_packets_to_process->pts" );
     while (av_read_frame(pFormatContext, pPacket) >= 0)
     {
         // if it's the video stream
