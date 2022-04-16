@@ -49,54 +49,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
 {
     logging("decode frame");
     return  0;
-    // Supply raw packet data as input to a decoder
-    // https://ffmpeg.org/doxygen/trunk/group__lavc__decoding.html#ga58bc4bf1e0ac59e27362597e467efff3
-    int response = avcodec_send_packet(pCodecContext, pPacket);
 
-    if (response < 0) {
-        logging("Error while sending a packet to the decoder: %s", av_err2str(response));
-        return response;
-    }
-
-    while (response >= 0)
-    {
-        // Return decoded output data (into a frame) from a decoder
-        // https://ffmpeg.org/doxygen/trunk/group__lavc__decoding.html#ga11e6542c4e66d3028668788a1a74217c
-        response = avcodec_receive_frame(pCodecContext, pFrame);
-        if (response == AVERROR(EAGAIN) || response == AVERROR_EOF) {
-            break;
-        } else if (response < 0) {
-            logging("Error while receiving a frame from the decoder: %s", av_err2str(response));
-            return response;
-        }
-
-        if (response >= 0) {
-            logging(
-                    "Frame %d (type=%c, size=%d bytes, format=%d) pts %d key_frame %d [DTS %d]",
-                    pCodecContext->frame_number,
-                    av_get_picture_type_char(pFrame->pict_type),
-                    pFrame->pkt_size,
-                    pFrame->format,
-                    pFrame->pts,
-                    pFrame->key_frame,
-                    pFrame->coded_picture_number
-            );
-
-            char frame_filename[1024];
-            snprintf(frame_filename, sizeof(frame_filename), "%s-%d.pgm", "frame", pCodecContext->frame_number);
-            // Check if the frame is a planar YUV 4:2:0, 12bpp
-            // That is the format of the provided .mp4 file
-            // RGB formats will definitely not give a gray image
-            // Other YUV image may do so, but untested, so give a warning
-            if (pFrame->format != AV_PIX_FMT_YUV420P)
-            {
-                logging("Warning: the generated file may not be a grayscale image, but could e.g. be just the R component if the video format is RGB");
-            }
-            // save a grayscale frame into a .pgm file
-            save_gray_frame(pFrame->data[0], pFrame->linesize[0], pFrame->width, pFrame->height, frame_filename);
-        }
-    }
-    return 0;
 }
 
 static void save_gray_frame(unsigned char *buf, int wrap, int xsize, int ysize, char *filename)
