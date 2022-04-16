@@ -1,177 +1,63 @@
-// Include standard headers
-#include <stdio.h>
-#include <stdlib.h>
-#include <string>
+#include <cstdlib>
 #include <iostream>
+using namespace std;
 
-// Include GLEW
-//#include <GL/glew.h>
-#include <GL/glut.h>
+/* Use glew.h instead of gl.h to get all the GL prototypes declared */
+#include <GL/glew.h>
+/* Using SDL2 for the base window and OpenGL context init */
+#include <SDL2/SDL.h>
+/* ADD GLOBAL VARIABLES HERE LATER */
 
-// Include GLFW
-#include <GLFW/glfw3.h>
-GLFWwindow* window;
-
-// Include GLM
-#include <glm/glm.hpp>
-using namespace glm;
-
-#include <common/shader.hpp>
-void Reshape(int width, int height)
-{
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(-1, 1, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
+bool init_resources(void) {
+    /* FILLED IN LATER */
+    return true;
 }
 
-void Draw(void)
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glLineWidth(1);
-
-    glBegin(GL_LINES);
-    glVertex2f(0, 0.5f);
-    glVertex2f(0, -0.5f);
-    glEnd();
-
-    glFlush();
+void render(SDL_Window* window) {
+    /* FILLED IN LATER */
 }
 
-int main(int argc, char *argv[])
-{
-    glutInit(&argc, argv);
-    glutInitWindowSize(400, 300);
-    glutInitWindowPosition(100, 100);
-
-    glutInitDisplayMode(GLUT_RGB);
-    glutCreateWindow("Romka Demo");
-
-    glutReshapeFunc(Reshape);
-    glutDisplayFunc(Draw);
-    glClearColor(0, 0, 0, 0);
-
-    glutMainLoop();
-    return 0;
-}
-int v_main( void )
-{
-	// Initialise GLFW
-	if( !glfwInit() )
-	{
-		fprintf( stderr, "Failed to initialize GLFW\n" );
-		getchar();
-		return -1;
-	}
-
-	glfwWindowHint(GLFW_SAMPLES, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	// Open a window and create its OpenGL context
-	window = glfwCreateWindow( 1024, 768, "Tutorial 02 - Red triangle", NULL, NULL);
-	if( window == NULL ){
-		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
-		getchar();
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
-
-	// Initialize GLEW
-	glewExperimental = true; // Needed for core profile
-	if (glewInit() != GLEW_OK) {
-		fprintf(stderr, "Failed to initialize GLEW\n");
-		getchar();
-		glfwTerminate();
-		return -1;
-	}
-
-	// Ensure we can capture the escape key being pressed below
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
-	// white blue background
-	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-
-	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
-
-
-
-
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-
-float i=-0.5f;
-	do{
-        i=i+0.01f;
-        if(i>1.0f)
-            i=-1.0f;
-        /*  GLfloat g_vertex_buffer_data[] = {
-                -1.0f, -1.0f, 0.0f,
-                1.0f, -1.0f, 0.0f,
-                0.0f,  i, 0.0f,
-        };*/
-        GLfloat g_vertex_buffer_data[] = {
-                -1.0f, -1.0f, 0.0f,
-                -1.0f ,0.0f, 0.0f,
-                0.0f,0.0f, 0.0f,
-
-        };
-        //printf( std::to_string(1) );
-        std::cout << "I: " << std::to_string(i) << "\r\n";
-        glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
-
-		// Clear the screen
-		glClear( GL_COLOR_BUFFER_BIT );
-
-		// Use our shader
-		glUseProgram(programID);
-
-		// 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(
-			0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
-
-		// Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
-
-		glDisableVertexAttribArray(0);
-
-		// Swap buffers
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-
-	} // Check if the ESC key was pressed or the window was closed
-	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-		   glfwWindowShouldClose(window) == 0 );
-
-	// Cleanup VBO
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteVertexArrays(1, &VertexArrayID);
-	glDeleteProgram(programID);
-
-	// Close OpenGL window and terminate GLFW
-	glfwTerminate();
-
-	return 0;
+void free_resources() {
+    /* FILLED IN LATER */
 }
 
+void mainLoop(SDL_Window* window) {
+    while (true) {
+        SDL_Event ev;
+        while (SDL_PollEvent(&ev)) {
+            if (ev.type == SDL_QUIT)
+                return;
+        }
+        render(window);
+    }
+}
+
+int main(int argc, char* argv[]) {
+    /* SDL-related initialising functions */
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Window* window = SDL_CreateWindow("My First Triangle",
+                                          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                          640, 480,
+                                          SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+    SDL_GL_CreateContext(window);
+
+    /* Extension wrangler initialising */
+    GLenum glew_status = glewInit();
+    if (glew_status != GLEW_OK) {
+        cerr << "Error: glewInit: " << glewGetErrorString(glew_status) << endl;
+        return EXIT_FAILURE;
+    }
+
+    /* When all init functions run without errors,
+       the program can initialise the resources */
+    if (!init_resources())
+        return EXIT_FAILURE;
+
+    /* We can display something if everything goes OK */
+    mainLoop(window);
+
+    /* If the program exits in the usual way,
+       free resources and exit with a success */
+    free_resources();
+    return EXIT_SUCCESS;
+}
