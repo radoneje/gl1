@@ -232,7 +232,7 @@ int work(){
 
     while (1) {
 
-        ret = avcodec_receive_packet(enc_ctx, pkt);
+        ret = avcodec_receive_packet(pCodecContext, packet);
         if (ret == AVERROR(EAGAIN)) {
             av_log(NULL, AV_LOG_ERROR, "EAGAIN\n");
             continue;
@@ -242,7 +242,25 @@ int work(){
             av_log(NULL, AV_LOG_ERROR, "AVERROR_EOF\n");
             return 0;
         }
+        if (packet->stream_index == videostream_index) {
+            av_log(NULL, AV_LOG_INFO, "decode video stream\n");
+            int frameFinished;
+            //avcodec_decode_video2(pCodecContext, frame, &frameFinished, &packet);
+        }
+        /*if ((ret = av_read_frame(pAVFormatContext, packet)) < 0)
+        {
+          //  av_log(NULL, AV_LOG_ERROR, "ERROR av_read_frame\n");
+        }
+        else {
+            if (packet->stream_index == videostream_index) {
+                av_log(NULL, AV_LOG_INFO, "decode video stream\n");
+                int frameFinished;
+                avcodec_decode_video2(pCodecContext, frame, &frameFinished, &packet);
+            }
 
+
+        }
+         */
     }
 
     return 0;
