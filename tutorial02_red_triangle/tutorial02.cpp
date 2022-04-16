@@ -197,7 +197,7 @@ int work(){
     packet = av_packet_alloc();
 
     AVFormatContext *pAVFormatContext = NULL;
-    if ( avformat_open_input(&pAVFormatContext, url, NULL, NULL))< 0) {
+    if ( avformat_open_input(&pAVFormatContext, url, NULL, NULL)< 0) {
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
         return ret;
     }
