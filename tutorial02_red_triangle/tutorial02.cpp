@@ -88,7 +88,7 @@ int main( void )
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     static const GLfloat g_color_buffer_data[] = {
-            0.583f,  0.771f,  0.014f,
+            1.0,  0.0,  0.0f,
             0.609f,  0.115f,  0.436f
 
     };
