@@ -72,11 +72,25 @@ int main( void )
         1.0f,  1.0f, 0.0f,
 	};
 
+    float[] vertices = {
+            // треугольник 1
+            -0.9f, 0.8f, -0.9f, 0.2f, -0.5f, 0.8f,
+
+            // треугольник 2
+            -0.6f, 0.2f, -0.2f, 0.2f, -0.2f, 0.8f,
+
+            // треугольник 3
+            0.1f, 0.8f, 0.1f, 0.2f, 0.5f, 0.8f,
+
+            // треугольник 4
+            0.1f, 0.2f, 0.5f, 0.2f, 0.5f, 0.8f,
+    };
+
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	do{
 
 		// Clear the screen
@@ -100,7 +114,10 @@ int main( void )
 		// Draw the triangle !
 		//glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
        // glLineWidth(5);
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+
+        glDrawArrays(GL_TRIANGLES, 0, 12);
+        //glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
         glDisableVertexAttribArray(0);
 
