@@ -26,9 +26,7 @@ using namespace glm;
 
 #include <common/shader.hpp>
 
-void logging(char* f){
-    printf(f);
-}
+
 int main( void )
 {
 
@@ -38,8 +36,8 @@ int main( void )
         return -1;
     }
     printf(" allocate memory for Format Context\n");
-    if (avformat_open_input(&pFormatContext, argv[1], NULL, NULL) != 0) {
-        logging("ERROR could not open the file");
+    if (avformat_open_input(&pFormatContext, '/tmp/vcbr.mp4
+        printf("ERROR could not open the file");
         return -1;
     }
 
