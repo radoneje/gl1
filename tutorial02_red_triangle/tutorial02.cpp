@@ -83,7 +83,8 @@ float i=-1.0f;
                 1.0f, -1.0f, 0.0f,
                 0.0f,  i, 0.0f,
         };
-        printf( std::to_string(1) );
+        //printf( std::to_string(1) );
+        std::cout << "I: " << std::to_string(i);
         glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
 		// Clear the screen
