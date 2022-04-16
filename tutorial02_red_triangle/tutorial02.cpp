@@ -146,7 +146,7 @@ int main( void )
     }
 
     // https://ffmpeg.org/doxygen/trunk/structAVFrame.html
-    AVFrame *pFrame =
+    AVFrame *pFrame =  av_frame_alloc();
     if (!pFrame)
     {
         logging("failed to allocated memory for AVFrame");
