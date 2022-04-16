@@ -205,7 +205,7 @@ int work(){
         return ret;
     }
 
-   r
+
 
 /* select the video stream */
     videostream_index = av_find_best_stream(pAVFormatContext, AVMEDIA_TYPE_VIDEO, -1, -1, &dec, 0);
