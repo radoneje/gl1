@@ -74,7 +74,7 @@ int main( void )
 
     float vertices[] = {
             // треугольник 1
-            -0.9f, 0.8f, 0.0f, -0.9f, 0.2f,0.0f, -0.5f, 0.8f,0.0f,
+            -1.0f, -1.0f, 0.0f, -1.0f, 0.0f,0.0f, -0.0f, 0.0f,0.0f,
 
             // треугольник 2
             -0.6f, 0.2f, 0.0f,-0.2f, 0.2f, 0.0f,-0.2f, 0.8f,0.0f,
@@ -116,7 +116,7 @@ int main( void )
        // glLineWidth(5);
 
 
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 3*3);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 3*2);
         //glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
         glDisableVertexAttribArray(0);
