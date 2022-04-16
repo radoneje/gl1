@@ -135,9 +135,21 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
 }
 
 
+int work(){
+    int ret;
+    AVPacket *packet = NULL;
+    unsigned int stream_index;
+    unsigned int i;
+
+    return 0;
+}
 
 int main( void )
 {
+
+    return work();
+
+
 
     AVFormatContext *pFormatContext = avformat_alloc_context();
     if (!pFormatContext) {
