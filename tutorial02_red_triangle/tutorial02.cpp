@@ -86,10 +86,17 @@ float i=-0.5f;
                 -1.0f, -1.0f, 0.0f,
                 -1.0f ,0.0f, 0.0f,
                 0.0f,0.0f, 0.0f,
-                0.0f,  -1.0, 0.0f,
+
         };
         //printf( std::to_string(1) );
         std::cout << "I: " << std::to_string(i) << "\r\n";
+        glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+        g_vertex_buffer_data[] = {
+                -1.0f, -1.0f, 0.0f,
+                -1.0f ,1.0f, 0.0f,
+                0.0f,0.0f, 0.0f,
+
+        };
         glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
 		// Clear the screen
@@ -103,7 +110,7 @@ float i=-0.5f;
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 		glVertexAttribPointer(
 			0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			4,                  // size
+			3,                  // size
 			GL_FLOAT,           // type
 			GL_FALSE,           // normalized?
 			0,                  // stride
