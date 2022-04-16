@@ -96,6 +96,10 @@ int main( void )
             1.0f,  1.0f,  0.0f,
             0.0f,  1.0f,  0.0f,
             0.0f,  1.0f,  0.0f,
+            0.0f,  0.0f,  1.0f,
+            0.0f,  0.0f,  1.0f,
+            0.0f,  0.0f,  1.0f,
+            0.0f,  0.0f,  1.0f
 
     };
 
@@ -142,7 +146,7 @@ int main( void )
 
         glDrawArrays(GL_TRIANGLES, 0, 3*2);
         glLineWidth(5);
-        glDrawArrays(GL_LINES, 6, 3);
+        glDrawArrays(GL_LINES, 6, 3*2);
         //glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
         glDisableVertexAttribArray(0);
