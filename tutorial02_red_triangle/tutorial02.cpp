@@ -189,7 +189,7 @@ static int open_input_file(const char *filename)
 int work(){
     int ret;
     AVPacket *packet;
-    const AVCodec *dec;
+     AVCodec *dec;
     unsigned int videostream_index=-1;
     unsigned int i;
     const char *url = "/tmp/vcbr.mp4";
@@ -204,7 +204,7 @@ int work(){
     }
 
 /* select the video stream */
-    videostream_index = av_find_best_stream(pAVFormatContext, AVMEDIA_TYPE_VIDEO, -1, -1, dec, 0);
+    videostream_index = av_find_best_stream(pAVFormatContext, AVMEDIA_TYPE_VIDEO, -1, -1, &dec, 0);
     if (videostream_index < 0) {
         av_log(NULL, AV_LOG_ERROR, "Cannot find a video stream in the input file\n");
         return ret;
