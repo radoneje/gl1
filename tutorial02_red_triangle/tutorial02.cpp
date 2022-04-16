@@ -166,7 +166,7 @@ int main( void )
 		//glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
        // glLineWidth(5);
 
-        glUniform4f()l
+
         glDrawArrays(GL_TRIANGLES, 0, 3*2);
         //glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
