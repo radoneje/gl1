@@ -159,6 +159,9 @@ static int open_input_file(const char *filename)
         return ret;
     }
     av_log(NULL, AV_LOG_INFO, "avformat_find_stream_info\n");
+    stream_ctx = av_calloc(ifmt_ctx->nb_streams, sizeof(*stream_ctx));
+    if (!stream_ctx)
+        return AVERROR(ENOMEM);
 
 
 
