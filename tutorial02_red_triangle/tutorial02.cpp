@@ -16,8 +16,16 @@ extern "C" {
 
 
 #include <libavcodec/avcodec.h>
+
+}
+extern "C" {
+// Get declaration for f(int i, char c, float x)
+
+
+
 #include <libavformat/avformat.h>
 }
+
 
 
 GLFWwindow* window;
