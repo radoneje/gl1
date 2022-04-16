@@ -40,6 +40,13 @@ using namespace glm;
 #include <common/shader.hpp>
 
 static AVFormatContext *ifmt_ctx;
+typedef struct StreamContext {
+    AVCodecContext *dec_ctx;
+    AVCodecContext *enc_ctx;
+
+    AVFrame *dec_frame;
+} StreamContext;
+static StreamContext *stream_ctx;
 
 static void logging(const char *fmt, ...)
 {
