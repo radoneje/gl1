@@ -212,9 +212,14 @@ int work(){
     logging("video stream index %d", videostream_index);
 
     av_log(NULL, AV_LOG_INFO, "before while\n");
+    if(videostream_index<0)
+    {
+        logging("ERROR: no video stram find\n");
+        return  1;
+    }
     while (1) {
         int ret = av_read_frame(pAVFormatContext, packet);
-        if (ret < 0) {
+        if (av_read_frame(pAVFormatContext, packet) < 0) {
             av_log(NULL, AV_LOG_ERROR, "Cannot open av_read_frame file\n");
             return 1;
         }
@@ -345,7 +350,7 @@ int main( void )
     }
 
     int response = 0;
-    int how_many_packets_to_process = 8;
+    int how_many_packets_to_process = 30;
 
     while (av_read_frame(pFormatContext, pPacket) >= 0)
     {
