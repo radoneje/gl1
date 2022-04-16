@@ -207,8 +207,8 @@ int main( void )
         if (pPacket->stream_index == video_stream_index) {
             logging("AVPacket->pts %" PRId64, pPacket->pts);
             response = decode_packet(pPacket, pCodecContext, pFrame);
-            if (response < 0)
-                break;
+            //if (response < 0)
+              //  break;
             // stop it, otherwise we'll be saving hundreds of frames
             if (--how_many_packets_to_process <= 0) break;
         }
