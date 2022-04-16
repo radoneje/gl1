@@ -217,12 +217,9 @@ int work(){
         logging("ERROR: no video stram find\n");
         return  1;
     }
-    while (1) {
-        int ret = av_read_frame(pAVFormatContext, packet);
-        if (av_read_frame(pAVFormatContext, packet) < 0) {
-            av_log(NULL, AV_LOG_ERROR, "Cannot open av_read_frame file\n");
-            return 1;
-        }
+    while (av_read_frame(pAVFormatContext, packet)) {
+
+        logging("av_read_frame");
         if(packet.stream_index == videoStream) {
             av_log(NULL, AV_LOG_INFO, "decode video stream\n");
         }
