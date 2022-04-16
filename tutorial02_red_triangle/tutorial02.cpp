@@ -4,60 +4,28 @@ using namespace std;
 
 /* Use glew.h instead of gl.h to get all the GL prototypes declared */
 #include <GL/glew.h>
+#include <GL/freeglut.h>
 /* Using SDL2 for the base window and OpenGL context init */
-#include <SDL2/SDL.h>
-/* ADD GLOBAL VARIABLES HERE LATER */
-
-bool init_resources(void) {
-    /* FILLED IN LATER */
-    return true;
+void display()
+{
+    /* рисуем что нибудь */
 }
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);//начальная инициализация окна
+    glutInitDisplayMode(GLUT_DOUBLE);//установка режима отображения
+    glutInitWindowSize(400,400);//размер окна
+    glutInitWindowPosition(200, 200);//начальная позиция на экране
+    //вы заметили что вначале идут функции с приставкой glutInit...?, так вот они должны быть первыми, а потом уже все остальные ф-ии.
+    glutCreateWindow("Window");//заголовок окна
+    glClearColor(1, 1, 1, 0);//цвет фона
 
-void render(SDL_Window* window) {
-    /* FILLED IN LATER */
-}
+    // настройка проекции, с этими двумя ф-ми познакомимся поближе чуть позже.
+    glMatrixMode(GL_PROJECTION);//режим матрицы
+    glLoadIdentity();//отчищает матрицу
 
-void free_resources() {
-    /* FILLED IN LATER */
-}
-
-void mainLoop(SDL_Window* window) {
-    while (true) {
-        SDL_Event ev;
-        while (SDL_PollEvent(&ev)) {
-            if (ev.type == SDL_QUIT)
-                return;
-        }
-        render(window);
-    }
-}
-
-int main(int argc, char* argv[]) {
-    /* SDL-related initialising functions */
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("My First Triangle",
-                                          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                          640, 480,
-                                          SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
-    SDL_GL_CreateContext(window);
-
-    /* Extension wrangler initialising */
-    GLenum glew_status = glewInit();
-    if (glew_status != GLEW_OK) {
-        cerr << "Error: glewInit: " << glewGetErrorString(glew_status) << endl;
-        return EXIT_FAILURE;
-    }
-
-    /* When all init functions run without errors,
-       the program can initialise the resources */
-    if (!init_resources())
-        return EXIT_FAILURE;
-
-    /* We can display something if everything goes OK */
-    mainLoop(window);
-
-    /* If the program exits in the usual way,
-       free resources and exit with a success */
-    free_resources();
-    return EXIT_SUCCESS;
+    glOrtho(-100, 100, -100, 100, -100, 100);//cоздаем пространство нашей сцены, в данном случае 3D пространство с высотой, шириной и глубиной в 200 едениц.
+    glutDisplayFunc(display);//функция которой мы передаем имя функции для отрисовки окна.
+    glutMainLoop();//запускаем всё проинициализированное, проще говоря та же ф-я main, только в данном случае glut'овская ф-я main.
+    return 0;
 }
