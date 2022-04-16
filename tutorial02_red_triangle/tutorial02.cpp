@@ -190,6 +190,8 @@ int work(){
     int ret;
     AVPacket *packet;
      AVCodec *dec;
+    AVFrame *frame;
+    frame = av_frame_alloc();
     unsigned int videostream_index=-1;
     unsigned int i;
     const char *url = "/tmp/vcbr.mp4";
@@ -228,6 +230,8 @@ int work(){
         else {
             if (packet->stream_index == videostream_index) {
                 av_log(NULL, AV_LOG_INFO, "decode video stream\n");
+                int frameFinished;
+                avcodec_decode_video2(pAVFormatContext, frame, &frameFinished, &packet);
             }
 
 
