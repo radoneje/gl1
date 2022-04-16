@@ -47,6 +47,21 @@ static void logging(const char *fmt, ...)
     va_end( args );
     fprintf( stderr, "\n" );
 }
+static void save_gray_frame(unsigned char *buf, int wrap, int xsize, int ysize, char *filename)
+{
+    FILE *f;
+    int i;
+    logging("save file %s",filename );
+    f = fopen(filename,"w");
+    // writing the minimal required header for a pgm file format
+    // portable graymap format -> https://en.wikipedia.org/wiki/Netpbm_format#PGM_example
+    fprintf(f, "P5\n%d %d\n%d\n", xsize, ysize, 255);
+
+    // writing line by line
+    for (i = 0; i < ysize; i++)
+        fwrite(buf + i * wrap, 1, xsize, f);
+    fclose(f);
+}
 static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFrame *pFrame)
 {
     logging("decode frame");
@@ -104,21 +119,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
 
 }
 
-static void save_gray_frame(unsigned char *buf, int wrap, int xsize, int ysize, char *filename)
-{
-    FILE *f;
-    int i;
-    logging("save file %s",filename );
-    f = fopen(filename,"w");
-    // writing the minimal required header for a pgm file format
-    // portable graymap format -> https://en.wikipedia.org/wiki/Netpbm_format#PGM_example
-    fprintf(f, "P5\n%d %d\n%d\n", xsize, ysize, 255);
 
-    // writing line by line
-    for (i = 0; i < ysize; i++)
-        fwrite(buf + i * wrap, 1, xsize, f);
-    fclose(f);
-}
 
 int main( void )
 {
