@@ -48,6 +48,14 @@ static void logging(const char *fmt, ...)
 static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFrame *pFrame)
 {
     logging("decode frame");
+    response = avcodec_receive_frame(pCodecContext, pFrame);
+    if (response == AVERROR(EAGAIN) || response == AVERROR_EOF) {
+        break;
+    } else if (response < 0) {
+        logging("Error while receiving a frame from the decoder: ");
+        return response;
+    }
+
     return  0;
 
 }
