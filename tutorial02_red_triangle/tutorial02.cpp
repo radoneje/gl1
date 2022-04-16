@@ -1,6 +1,7 @@
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 // Include GLEW
 #include <GL/glew.h>
