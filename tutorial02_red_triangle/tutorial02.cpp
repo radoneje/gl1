@@ -66,22 +66,18 @@ int main( void )
 	GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
 
 
-	static const GLfloat g_vertex_buffer_data[] = { 
-		-1.0f, -1.0f, 0.0f,
-		 1.0f, -1.0f, 0.0f,
-		 0.0f,  1.0f, 0.0f,
-	};
+
 
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 
-float i=-1.0f;
+float i=-0.5f;
 	do{
         i=i+0.01f;
         if(i>1.0f)
             i=-1.0f;
-        static const GLfloat g_vertex_buffer_data[] = {
+          GLfloat g_vertex_buffer_data[] = {
                 -1.0f, -1.0f, 0.0f,
                 1.0f, -1.0f, 0.0f,
                 0.0f,  i, 0.0f,
