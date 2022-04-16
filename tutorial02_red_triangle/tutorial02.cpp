@@ -216,7 +216,7 @@ int work(){
     logging("video stream index %d", videostream_index);
 
     AVCodecContext *pCodecContext = avcodec_alloc_context3(dec);
-    pCodecContext=pAVFormatContext->streams[videostream_index]->codecpar;
+    pCodecParameters=pAVFormatContext->streams[videostream_index]->codecpar;
     if (avcodec_parameters_to_context(pCodecContext, pCodecParameters) < 0)
     {
         logging("failed to copy codec params to codec context");
