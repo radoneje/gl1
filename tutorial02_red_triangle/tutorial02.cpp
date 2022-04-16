@@ -56,17 +56,54 @@ int main( void )
     std::cout<< "format: "<< pFormatContext->iformat->name << "; duration" << pFormatContext->duration << "; bit_rate" << pFormatContext->bit_rate << "\n";
 
     logging("finding stream info from format");
-    // read Packets from the Format to get stream information
-    // this function populates pFormatContext->streams
-    // (of size equals to pFormatContext->nb_streams)
-    // the arguments are:
-    // the AVFormatContext
-    // and options contains options for codec corresponding to i-th stream.
-    // On return each dictionary will be filled with options that were not found.
-    // https://ffmpeg.org/doxygen/trunk/group__lavf__decoding.html#gad42172e27cddafb81096939783b157bb
+
     if (avformat_find_stream_info(pFormatContext,  NULL) < 0) {
         logging("ERROR could not get the stream info");
         return -1;
+    }
+    AVCodec *pCodec = NULL;
+    // this component describes the properties of a codec used by the stream i
+    // https://ffmpeg.org/doxygen/trunk/structAVCodecParameters.html
+    AVCodecParameters *pCodecParameters =  NULL;
+    int video_stream_index = -1;
+    for (int i = 0; i < pFormatContext->nb_streams; i++)
+    {
+        AVCodecParameters *pLocalCodecParameters =  NULL;
+        pLocalCodecParameters = pFormatContext->streams[i]->codecpar;
+        logging("AVStream->time_base before open coded %d/%d", pFormatContext->streams[i]->time_base.num, pFormatContext->streams[i]->time_base.den);
+        logging("AVStream->r_frame_rate before open coded %d/%d", pFormatContext->streams[i]->r_frame_rate.num, pFormatContext->streams[i]->r_frame_rate.den);
+        logging("AVStream->start_time %" PRId64, pFormatContext->streams[i]->start_time);
+        logging("AVStream->duration %" PRId64, pFormatContext->streams[i]->duration);
+
+        logging("finding the proper decoder (CODEC)");
+
+        AVCodec *pLocalCodec = NULL;
+
+        // finds the registered decoder for a codec ID
+        // https://ffmpeg.org/doxygen/trunk/group__lavc__decoding.html#ga19a0ca553277f019dd5b0fec6e1f9dca
+        pLocalCodec = avcodec_find_decoder(pLocalCodecParameters->codec_id);
+
+        if (pLocalCodec==NULL) {
+            logging("ERROR unsupported codec!");
+            // In this example if the codec is not found we just skip it
+            continue;
+        }
+
+        // when the stream is a video we store its index, codec parameters and codec
+        if (pLocalCodecParameters->codec_type == AVMEDIA_TYPE_VIDEO) {
+            if (video_stream_index == -1) {
+                video_stream_index = i;
+                pCodec = pLocalCodec;
+                pCodecParameters = pLocalCodecParameters;
+            }
+
+            logging("Video Codec: resolution %d x %d", pLocalCodecParameters->width, pLocalCodecParameters->height);
+        } else if (pLocalCodecParameters->codec_type == AVMEDIA_TYPE_AUDIO) {
+            logging("Audio Codec: %d channels, sample rate %d", pLocalCodecParameters->channels, pLocalCodecParameters->sample_rate);
+        }
+
+        // print its name, id and bitrate
+        logging("\tCodec %s ID %d bit_rate %lld", pLocalCodec->name, pLocalCodec->id, pLocalCodecParameters->bit_rate);
     }
 
 
