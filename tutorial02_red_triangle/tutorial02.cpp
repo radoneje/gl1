@@ -168,6 +168,9 @@ static int open_input_file(const char *filename)
             av_log(NULL, AV_LOG_ERROR, "Failed to find decoder for stream #%u\n", i);
             return AVERROR_DECODER_NOT_FOUND;
         }
+        else
+            av_log(NULL, AV_LOG_INFO, "find decoder for stream #%u\n", i);
+
     }
 
 
