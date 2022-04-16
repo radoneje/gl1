@@ -47,6 +47,8 @@ static void logging(const char *fmt, ...)
 }
 static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFrame *pFrame)
 {
+    logging("decode frame");
+    return  0;
     // Supply raw packet data as input to a decoder
     // https://ffmpeg.org/doxygen/trunk/group__lavc__decoding.html#ga58bc4bf1e0ac59e27362597e467efff3
     int response = avcodec_send_packet(pCodecContext, pPacket);
