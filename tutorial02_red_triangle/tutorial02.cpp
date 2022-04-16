@@ -52,7 +52,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
 
     if (response < 0) {
         char  e[AV_ERROR_MAX_STRING_SIZE];
-        av_make_error_string(e,  AV_ERROR_MAX_STRING_SIZE, response))
+        av_make_error_string(e,  AV_ERROR_MAX_STRING_SIZE, response);
         logging("ERROR while sending a packet to the decoder: %s", e);
         return response;
     }
