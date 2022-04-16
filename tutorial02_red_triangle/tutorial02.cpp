@@ -197,6 +197,10 @@ int work(){
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
         return ret;
     }
+    if ((ret = avformat_find_stream_info(ifmt_ctx, NULL)) < 0) {
+        av_log(NULL, AV_LOG_ERROR, "Cannot find stream information\n");
+        return ret;
+    }
 
     av_log(NULL, AV_LOG_INFO, "before while\n");
     while (1) {
