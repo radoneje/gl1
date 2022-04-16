@@ -29,10 +29,13 @@ using namespace glm;
 
 int main( void )
 {
-     AVCodec *codec;
 
-    codec = avcodec_find_encoder(AV_CODEC_ID_MP3);
     AVFormatContext *pFormatContext = avformat_alloc_context();
+    if (!pFormatContext) {
+        printf("ERROR could not allocate memory for Format Context");
+        return -1;
+    }
+
 	// Initialise GLFW
 	if( !glfwInit() )
 	{
