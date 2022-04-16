@@ -53,8 +53,8 @@ int main( void )
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	// white blue background
+	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
