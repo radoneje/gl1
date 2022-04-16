@@ -223,6 +223,10 @@ int work(){
             av_log(NULL, AV_LOG_ERROR, "Cannot open av_read_frame file\n");
             return 1;
         }
+        if(packet.stream_index == videoStream) {
+            av_log(NULL, AV_LOG_INFO, "decode video stream\n");
+        }
+
        /// av_log(NULL, AV_LOG_INFO, "av_read_frame\n");
     }
 
