@@ -1,6 +1,7 @@
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -43,6 +44,7 @@ int main( void )
         printf("ERROR could not open the file");
         return -1;
     }
+    std::cout<< "format: "<< pFormatContext->iformat->name << "; duration" << pFormatContext->duration << "; bit_rate" << pFormatContext->bit_rate;
 
 	// Initialise GLFW
 	if( !glfwInit() )
