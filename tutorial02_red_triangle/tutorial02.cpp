@@ -204,6 +204,8 @@ int work(){
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
         return ret;
     }
+    AVCodecContext *pCodecContext = avcodec_alloc_context3(pCodec);
+   r
 
 /* select the video stream */
     videostream_index = av_find_best_stream(pAVFormatContext, AVMEDIA_TYPE_VIDEO, -1, -1, &dec, 0);
@@ -212,7 +214,12 @@ int work(){
         return ret;
     }
     logging("video stream index %d", videostream_index);
-
+    pCodecContext=pAVFormatContext->streams[videostream_index]->->codecpar;
+    if (avcodec_parameters_to_context(pCodecContext, pCodecParameters) < 0)
+    {
+        logging("failed to copy codec params to codec context");
+        return -1;
+    }
 
     if(videostream_index<0)
     {
@@ -231,7 +238,7 @@ int work(){
             if (packet->stream_index == videostream_index) {
                 av_log(NULL, AV_LOG_INFO, "decode video stream\n");
                 int frameFinished;
-                avcodec_decode_video2(pAVFormatContext, frame, &frameFinished, &packet);
+                avcodec_decode_video2(pCodecContext, frame, &frameFinished, &packet);
             }
 
 
