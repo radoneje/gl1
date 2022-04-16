@@ -190,7 +190,7 @@ int work(){
     AVPacket *packet = NULL;
     unsigned int stream_index;
     unsigned int i;
-    const char *url = "file:/tmp/vcbr.mp4";
+    const char *url = "/tmp/vcbr.mp4";
     ifmt_ctx = NULL;
 
     if ((ret = avformat_open_input(&ifmt_ctx, url, NULL, NULL)) < 0) {
