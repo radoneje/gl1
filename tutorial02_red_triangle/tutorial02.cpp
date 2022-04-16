@@ -123,7 +123,7 @@ int main( void )
         logging("AVStream->start_time %" PRId64, pFormatContext->streams[i]->start_time);
         logging("AVStream->duration %" PRId64, pFormatContext->streams[i]->duration);
 
-        logging("finding the proper decoder (CODEC)");
+        logging("finding the proper decoder (CODEC) %d ", pLocalCodecParameters->codec_id);
 
         AVCodec *pLocalCodec = NULL;
 
@@ -132,7 +132,7 @@ int main( void )
         pLocalCodec = avcodec_find_decoder(pLocalCodecParameters->codec_id);
 
         if (pLocalCodec==NULL) {
-            logging("ERROR unsupported codec!");
+            logging("ERROR unsupported codec! %d", i);
             // In this example if the codec is not found we just skip it
             continue;
         }
