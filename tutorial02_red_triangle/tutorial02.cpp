@@ -201,8 +201,10 @@ int work(){
     av_log(NULL, AV_LOG_INFO, "before while\n");
     while (1) {
         int ret = av_read_frame(ifmt_ctx, packet)
-        if (ret < 0)
-            break;
+        if (ret < 0) {
+            av_log(NULL, AV_LOG_ERROR, "Cannot open av_read_frame file\n");
+            return 1;
+        }
         av_log(NULL, AV_LOG_INFO, "av_read_frame\n");
     }
 
