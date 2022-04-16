@@ -90,7 +90,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
         return response;
     }
     while (response >= 0) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000/10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         response = avcodec_receive_frame(pCodecContext, pFrame);
         if (response == AVERROR(EAGAIN) || response == AVERROR_EOF) {
             char  e[AV_ERROR_MAX_STRING_SIZE];
