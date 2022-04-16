@@ -204,7 +204,7 @@ int work(){
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
         return ret;
     }
-    AVCodecContext *pCodecContext = avcodec_alloc_context3(pCodec);
+
    r
 
 /* select the video stream */
@@ -214,7 +214,9 @@ int work(){
         return ret;
     }
     logging("video stream index %d", videostream_index);
-    pCodecContext=pAVFormatContext->streams[videostream_index]->->codecpar;
+
+    AVCodecContext *pCodecContext = avcodec_alloc_context3(dec);
+    pCodecContext=pAVFormatContext->streams[videostream_index]->codecpar;
     if (avcodec_parameters_to_context(pCodecContext, pCodecParameters) < 0)
     {
         logging("failed to copy codec params to codec context");
