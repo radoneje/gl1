@@ -74,9 +74,9 @@ int main( void )
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 
-float i=0;
+float i=-1.0f;
 	do{
-        i=i+0.01;
+        i=i+0.01f;
         static const GLfloat g_vertex_buffer_data[] = {
                 -1.0f, -1.0f, 0.0f,
                 1.0f, -1.0f, 0.0f,
