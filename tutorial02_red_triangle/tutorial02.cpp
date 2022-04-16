@@ -144,9 +144,10 @@ int main( void )
                 video_stream_index = i;
                 pCodec = pLocalCodec;
                 pCodecParameters = pLocalCodecParameters;
+                logging("Video Codec: resolution %d x %d", pLocalCodecParameters->width, pLocalCodecParameters->height);
             }
 
-            logging("Video Codec: resolution %d x %d", pLocalCodecParameters->width, pLocalCodecParameters->height);
+
         } else if (pLocalCodecParameters->codec_type == AVMEDIA_TYPE_AUDIO) {
             logging("Audio Codec: %d channels, sample rate %d", pLocalCodecParameters->channels, pLocalCodecParameters->sample_rate);
         }
