@@ -36,7 +36,7 @@ int main( void )
         return -1;
     }
     printf(" allocate memory for Format Context\n");
-    if (avformat_open_input(&pFormatContext, '/tmp/vcbr.mp4
+    if (avformat_open_input(&pFormatContext, '/tmp/vcbr.mp4', NULL, NULL) != 0) {
         printf("ERROR could not open the file");
         return -1;
     }
