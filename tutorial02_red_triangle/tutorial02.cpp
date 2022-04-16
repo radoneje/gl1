@@ -105,6 +105,7 @@ int main( void )
         // print its name, id and bitrate
         logging("\tCodec %s ID %d bit_rate %lld", pLocalCodec->name, pLocalCodec->id, pLocalCodecParameters->bit_rate);
     }
+    std::cout<< "video_stream_index" << video_stream_index << "\n";
     logging("video_stream_index " );
     if (video_stream_index == -1) {
         logging("File %s does not contain a video stream!", argv[1]);
