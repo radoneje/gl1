@@ -223,7 +223,7 @@ int work(){
 
         if ((ret = av_read_frame(pAVFormatContext, packet)) < 0)
         {
-            av_log(NULL, AV_LOG_ERROR, "ERROR av_read_frame\n");
+          //  av_log(NULL, AV_LOG_ERROR, "ERROR av_read_frame\n");
 
         }
         else {
