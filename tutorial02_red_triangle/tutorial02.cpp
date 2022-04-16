@@ -68,7 +68,8 @@ int main( void )
 	static const GLfloat g_vertex_buffer_data[] = { 
 		-1.0f, -1.0f, 0.0f,
 		 1.0f, -1.0f, 0.0f,
-		 0.0f,  1.0f, 0.0f,
+		 1.0f,  0.0f, 0.0f,
+        1.0f,  1.0f, 0.0f,
 	};
 
 	GLuint vertexbuffer;
@@ -97,9 +98,11 @@ int main( void )
 		);
 
 		// Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
+		//glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
+        glLineWidth(5);
+        glDrawArrays(GL_LINES, 0, 4);
 
-		glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(0);
 
 		// Swap buffers
 		glfwSwapBuffers(window);
