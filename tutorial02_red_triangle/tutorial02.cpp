@@ -189,6 +189,7 @@ static int open_input_file(const char *filename)
 int work(){
     int ret;
     AVPacket *packet;
+    const AVCodec *dec;
     unsigned int videostream_index=-1;
     unsigned int i;
     const char *url = "/tmp/vcbr.mp4";
