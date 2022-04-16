@@ -198,6 +198,7 @@ int work(){
         return ret;
     }
 
+    av_log(NULL, AV_LOG_INFO, "before while\n");
     while (1) {
         if ((ret = av_read_frame(ifmt_ctx, packet)) < 0)
             break;
