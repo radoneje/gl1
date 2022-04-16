@@ -95,7 +95,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
                 logging("Warning: the generated file may not be a grayscale image, but could e.g. be just the R component if the video format is RGB");
             }
             // save a grayscale frame into a .pgm file
-            //save_gray_frame(pFrame->data[0], pFrame->linesize[0], pFrame->width, pFrame->height, frame_filename);
+            save_gray_frame(pFrame->data[0], pFrame->linesize[0], pFrame->width, pFrame->height, frame_filename);
         }
     }
 
@@ -108,6 +108,7 @@ static void save_gray_frame(unsigned char *buf, int wrap, int xsize, int ysize, 
 {
     FILE *f;
     int i;
+    logging("save file %s",filename );
     f = fopen(filename,"w");
     // writing the minimal required header for a pgm file format
     // portable graymap format -> https://en.wikipedia.org/wiki/Netpbm_format#PGM_example
