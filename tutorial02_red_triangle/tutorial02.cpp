@@ -14,6 +14,7 @@ extern "C" {
 
 
 #include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
 }
 
 
@@ -31,6 +32,7 @@ int main( void )
      AVCodec *codec;
 
     codec = avcodec_find_encoder(AV_CODEC_ID_MP3);
+    avcodec_re
 	// Initialise GLFW
 	if( !glfwInit() )
 	{
