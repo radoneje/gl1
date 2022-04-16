@@ -37,6 +37,7 @@ int main( void )
     }
     printf("q");
 
+
 	// Initialise GLFW
 	if( !glfwInit() )
 	{
