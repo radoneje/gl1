@@ -234,7 +234,7 @@ int work(){
     while (1) {
         ii++;
 
-        ret = avcodec_receive_frame(dec, frame);
+        ret = avcodec_receive_frame(pCodecContext, frame);
         if (ret == AVERROR(EAGAIN)) {
             av_log(NULL, AV_LOG_ERROR, "EAGAIN\n");
             continue;
@@ -244,7 +244,7 @@ int work(){
             av_log(NULL, AV_LOG_ERROR, "AVERROR_EOF\n");
             return 0;
         }
-        loging("receive frame %d\n", ii);
+        logging("receive frame %d\n", ii);
 
         /*ret = avcodec_receive_packet(pCodecContext, packet);
         if (ret == AVERROR(EAGAIN)) {
