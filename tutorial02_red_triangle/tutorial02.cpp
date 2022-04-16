@@ -223,16 +223,19 @@ int work(){
 
         if ((ret = av_read_frame(pAVFormatContext, packet)) < 0)
         {
-            av_log(NULL, AV_LOG_ERROR, "av_read_frame\n");
-        }
+            av_log(NULL, AV_LOG_ERROR, "ERROR av_read_frame\n");
 
-        logging("av_read_frame");
-        av_log(NULL, AV_LOG_INFO, "av_read_frame\n");
-        if(packet->stream_index == videostream_index) {
-            av_log(NULL, AV_LOG_INFO, "decode video stream\n");
         }
+        else {
 
-        av_log(NULL, AV_LOG_INFO, "av_read_frame\n");
+
+            av_log(NULL, AV_LOG_INFO, "av_read_frame\n");
+            if (packet->stream_index == videostream_index) {
+                av_log(NULL, AV_LOG_INFO, "decode video stream\n");
+            }
+
+
+        }
     }
 
     return 0;
