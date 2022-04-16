@@ -211,16 +211,16 @@ int work(){
     }
     logging("video stream index %d", videostream_index);
 
-    av_log(NULL, AV_LOG_INFO, "before while\n");
+
     if(videostream_index<0)
     {
         logging("ERROR: no video stram find\n");
         return  1;
     }
+    av_log(NULL, AV_LOG_INFO, "before while\n");
     while (av_read_frame(pAVFormatContext, packet)) {
-
         logging("av_read_frame");
-        if(packet.stream_index == videoStream) {
+        if(packet->stream_index == videoStream) {
             av_log(NULL, AV_LOG_INFO, "decode video stream\n");
         }
 
