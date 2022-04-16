@@ -47,6 +47,21 @@ static void logging(const char *fmt, ...)
     va_end( args );
     fprintf( stderr, "\n" );
 }
+static void ppm_save(unsigned char* buf, int wrap, int xsize, int ysize, char* filename)
+{
+    FILE* f;
+    int i;
+
+    f = fopen(filename, "wb");
+    fprintf(f, "P6\n%d %d\n%d\n", xsize, ysize, 255);
+
+    for (i = 0; i < ysize; i++)
+    {
+        fwrite(buf + i * wrap, 1, xsize*3, f);
+    }
+
+    fclose(f);
+}
 static void save_gray_frame(unsigned char *buf, int wrap, int xsize, int ysize, char *filename)
 {
     FILE *f;
@@ -100,7 +115,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
             );
 
             char frame_filename[1024];
-            snprintf(frame_filename, sizeof(frame_filename), "%s-%d.pgm", "frame", pCodecContext->frame_number);
+            snprintf(frame_filename, sizeof(frame_filename), "%s-%d.bmp", "frame", pCodecContext->frame_number);
             // Check if the frame is a planar YUV 4:2:0, 12bpp
             // That is the format of the provided .mp4 file
             // RGB formats will definitely not give a gray image
@@ -110,7 +125,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
                 logging("Warning: the generated file may not be a grayscale image, but could e.g. be just the R component if the video format is RGB");
             }
             // save a grayscale frame into a .pgm file
-            save_gray_frame(pFrame->data[0], pFrame->linesize[0], pFrame->width, pFrame->height, frame_filename);
+            ppm_save(pFrame->data[0], pFrame->linesize[0], pFrame->width, pFrame->height, frame_filename);
         }
     }
 
