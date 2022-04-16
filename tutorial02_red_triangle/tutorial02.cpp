@@ -6,6 +6,7 @@
 
 // Include GLEW
 #include <GL/glew.h>
+#include <GL/glut.h>
 
 // Include GLFW
 #include <GLFW/glfw3.h>
