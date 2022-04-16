@@ -24,7 +24,9 @@ using namespace glm;
 
 int main( void )
 {
-    AVFrame* pic = avcodec_alloc_frame();
+    AVCodec *codec;
+
+    codec = avcodec_find_encoder(AV_CODEC_ID_MP3);
 	// Initialise GLFW
 	if( !glfwInit() )
 	{
