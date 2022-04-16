@@ -8,11 +8,11 @@
 // Include GLFW
 #include <GLFW/glfw3.h>
 
-#include "libavutil/imgutils.h"
-#include "libavutil/opt.h"
-#include "libavcodec/avcodec.h"
-#include "libavutil/mathematics.h"
-#include "libavutil/samplefmt.h"
+#include <imgutils.h>
+#include <opt.h>
+#include <avcodec.h>
+#include <mathematics.h>
+#include <samplefmt.h>
 
 GLFWwindow* window;
 
