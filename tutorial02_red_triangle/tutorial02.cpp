@@ -138,7 +138,7 @@ int main( void )
         }
 
         // when the stream is a video we store its index, codec parameters and codec
-        logging("pLocalCodecParameters->codec_type",  pFormatContext->nb_stream);
+        logging("pLocalCodecParameters->codec_type %d",  i);
         if (pLocalCodecParameters->codec_type == AVMEDIA_TYPE_VIDEO) {
             if (video_stream_index == -1) {
                 video_stream_index = i;
