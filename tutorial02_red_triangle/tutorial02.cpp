@@ -160,6 +160,15 @@ static int open_input_file(const char *filename)
     }
     av_log(NULL, AV_LOG_INFO, "avformat_find_stream_info\n");
      av_calloc(ifmt_ctx->nb_streams, sizeof(*stream_ctx));
+    for (i = 0; i < ifmt_ctx->nb_streams; i++) {
+        AVStream *stream = ifmt_ctx->streams[i];
+        const AVCodec *dec = avcodec_find_decoder(stream->codecpar->codec_id);
+        AVCodecContext *codec_ctx;
+        if (!dec) {
+            av_log(NULL, AV_LOG_ERROR, "Failed to find decoder for stream #%u\n", i);
+            return AVERROR_DECODER_NOT_FOUND;
+        }
+    }
 
 
 
