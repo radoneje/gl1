@@ -25,6 +25,7 @@ using namespace glm;
 
 int main( void )
 {
+    avcodec_register_all();
 	// Initialise GLFW
 	if( !glfwInit() )
 	{
