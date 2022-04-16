@@ -220,6 +220,7 @@ int work(){
     av_log(NULL, AV_LOG_INFO, "before while\n");
     while (av_read_frame(pAVFormatContext, packet)) {
         logging("av_read_frame");
+        av_log(NULL, AV_LOG_INFO, "av_read_frame\n");
         if(packet->stream_index == videostream_index) {
             av_log(NULL, AV_LOG_INFO, "decode video stream\n");
         }
