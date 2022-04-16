@@ -32,7 +32,7 @@ int main( void )
      AVCodec *codec;
 
     codec = avcodec_find_encoder(AV_CODEC_ID_MP3);
-    avcodec_re
+    AVFormatContext *pFormatContext = avformat_alloc_context();
 	// Initialise GLFW
 	if( !glfwInit() )
 	{
