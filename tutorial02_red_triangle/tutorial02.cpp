@@ -166,10 +166,15 @@ static int open_input_file(const char *filename)
         AVCodecContext *codec_ctx;
         if (!dec) {
             av_log(NULL, AV_LOG_ERROR, "Failed to find decoder for stream #%u\n", i);
-            return AVERROR_DECODER_NOT_FOUND;
+            continue;
         }
         else
             av_log(NULL, AV_LOG_INFO, "find decoder for stream #%u\n", i);
+        codec_ctx = avcodec_alloc_context3(dec);
+        if (!codec_ctx) {
+            av_log(NULL, AV_LOG_ERROR, "Failed to allocate the decoder context for stream #%u\n", i);
+            return AVERROR(ENOMEM);
+        }
 
     }
 
