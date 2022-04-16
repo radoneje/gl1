@@ -234,7 +234,7 @@ int work(){
     while (1) {
         ii++;
 
-        ret = avcodec_receive_frame(dec_ctx, frame);
+        ret = avcodec_receive_frame(dec, frame);
         if (ret == AVERROR(EAGAIN)) {
             av_log(NULL, AV_LOG_ERROR, "EAGAIN\n");
             continue;
