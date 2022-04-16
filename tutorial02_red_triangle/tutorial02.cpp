@@ -35,7 +35,7 @@ int main( void )
         printf("ERROR could not allocate memory for Format Context");
         return -1;
     }
-    printf("q");
+    printf(" allocate memory for Format Context\n");
 
 
 	// Initialise GLFW
