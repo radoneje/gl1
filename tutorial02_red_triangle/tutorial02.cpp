@@ -144,7 +144,8 @@ int work(){
     ret = open_input_file(url)
     if (ret < 0)
     {
-        logging("ERROR open_input_file")
+        logging("ERROR open_input_file");
+        return 1;
     }
 
     return 0;
