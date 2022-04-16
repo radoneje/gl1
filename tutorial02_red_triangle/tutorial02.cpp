@@ -9,8 +9,12 @@
 #include <GLFW/glfw3.h>
 
 
+extern "C" {
+// Get declaration for f(int i, char c, float x)
+
 
 #include <libavcodec/avcodec.h>
+}
 
 
 GLFWwindow* window;
@@ -24,7 +28,7 @@ using namespace glm;
 
 int main( void )
 {
-    AVCodec *codec;
+     AVCodec *codec;
 
     codec = avcodec_find_encoder(AV_CODEC_ID_MP3);
 	// Initialise GLFW
