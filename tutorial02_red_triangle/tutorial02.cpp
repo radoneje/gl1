@@ -89,6 +89,9 @@ int main( void )
 
     static const GLfloat g_color_buffer_data[] = {
             1.0,  0.0,  0.0f,
+            0.609f,  0.115f,  0.436f,
+            0.609f,  0.115f,  0.436f,
+            0.609f,  0.115f,  0.436f,
             0.609f,  0.115f,  0.436f
 
     };
