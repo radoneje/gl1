@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <chrono>
+#include <thread>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -48,6 +50,7 @@ static void logging(const char *fmt, ...)
 static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFrame *pFrame)
 {
     logging("decode frame");
+
     int response = avcodec_send_packet(pCodecContext, pPacket);
 
     if (response < 0) {
@@ -57,6 +60,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
         return response;
     }
     while (response >= 0) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         response = avcodec_receive_frame(pCodecContext, pFrame);
         if (response == AVERROR(EAGAIN) || response == AVERROR_EOF) {
             char  e[AV_ERROR_MAX_STRING_SIZE];
