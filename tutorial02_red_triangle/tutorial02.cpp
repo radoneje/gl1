@@ -141,6 +141,7 @@ int main( void )
 
 
         glDrawArrays(GL_TRIANGLES, 0, 3*2);
+        glLineWidth(5);
         glDrawArrays(GL_LINES, 6, 3);
         //glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
