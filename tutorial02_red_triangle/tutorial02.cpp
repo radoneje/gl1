@@ -17,15 +17,14 @@ extern "C" {
 // Get declaration for f(int i, char c, float x)
 
 
-#include <libavcodec/avcodec.h>
+
 
 }
 extern "C" {
 // Get declaration for f(int i, char c, float x)
-
-
-
+#include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
+#include <libavutil/frame.h>
 }
 
 
