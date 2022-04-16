@@ -57,6 +57,7 @@ static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFra
     while (response >= 0) {
         response = avcodec_receive_frame(pCodecContext, pFrame);
         if (response == AVERROR(EAGAIN) || response == AVERROR_EOF) {
+            logging("AVERROR");
             break;
         } else if (response < 0) {
             logging("Error while receiving a frame from the decoder: ");
