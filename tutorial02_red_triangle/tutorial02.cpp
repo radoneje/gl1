@@ -77,10 +77,16 @@ float i=-0.5f;
         i=i+0.01f;
         if(i>1.0f)
             i=-1.0f;
-          GLfloat g_vertex_buffer_data[] = {
+        /*  GLfloat g_vertex_buffer_data[] = {
                 -1.0f, -1.0f, 0.0f,
                 1.0f, -1.0f, 0.0f,
                 0.0f,  i, 0.0f,
+        };*/
+        GLfloat g_vertex_buffer_data[] = {
+                -1.0f, -1.0f, 0.0f,
+                -1.0f ,0.0f, 0.0f,
+                0.0f,0.0f, 0.0f,
+                0.0f,  -1.0, 0.0f,
         };
         //printf( std::to_string(1) );
         std::cout << "I: " << std::to_string(i) << "\r\n";
