@@ -220,7 +220,7 @@ int work(){
     av_log(NULL, AV_LOG_INFO, "before while\n");
 
     while (1) {
-        av_read_frame(pAVFormatContext, packet)
+
         if ((ret = av_read_frame(pAVFormatContext, packet)) < 0)
         {
             av_log(NULL, AV_LOG_ERROR, "av_read_frame\n");
