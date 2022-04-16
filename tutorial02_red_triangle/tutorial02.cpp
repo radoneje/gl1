@@ -176,6 +176,7 @@ static int open_input_file(const char *filename)
             return AVERROR(ENOMEM);
         }
 
+
     }
 
 
@@ -190,11 +191,17 @@ int work(){
     unsigned int stream_index;
     unsigned int i;
     const char *url = "file:/tmp/vcbr.mp4";
-    ret = open_input_file(url);
-    if (ret < 0)
-    {
-        logging("ERROR open_input_file");
-        return 1;
+    ifmt_ctx = NULL;
+
+    if ((ret = avformat_open_input(&ifmt_ctx, url, NULL, NULL)) < 0) {
+        av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
+        return ret;
+    }
+
+    while (1) {
+        if ((ret = av_read_frame(ifmt_ctx, packet)) < 0)
+            break;
+        av_log(NULL, AV_LOG_INFO, "av_read_frame\n");
     }
 
     return 0;
