@@ -209,6 +209,16 @@ int work(){
         return -1; // Couldn't find stream information
     }
     av_dump_format(ctx_format, 0, fin, false);
+    for (int i = 0; i < ctx_format->nb_streams; i++)
+        if (ctx_format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
+            stream_idx = i;
+            vid_stream = ctx_format->streams[i];
+            break;
+        }
+    if (vid_stream == nullptr) {
+        std::cout << 4 << std::endl;
+        return -1;
+    }
 
 
     return 0;
