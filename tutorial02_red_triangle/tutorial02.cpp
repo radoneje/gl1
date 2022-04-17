@@ -190,6 +190,7 @@ int work(){
     int ret;
     AVPacket *packet;
      AVCodec *dec;
+
     AVFrame *frame;
     frame = av_frame_alloc();
     unsigned int videostream_index=-1;
@@ -231,7 +232,7 @@ int work(){
     av_log(NULL, AV_LOG_INFO, "before while\n");
 
     int ii=0;
-    while (ii<10000) {
+    while (ii<100) {
         ii++;
 
         ret = avcodec_receive_frame(pCodecContext, frame);
@@ -246,6 +247,11 @@ int work(){
         }
         if(ret>0){
             logging("receive frame error ", ret);
+        }
+        int isFrameFinished;
+        ret =avcodec_decode_video2(pCodecContext,frame,&isFrameFinished, packet);
+        if(ret>0){
+            logging("decode frame error ", ret);
         }
         logging("receive frame %d %d", ii, pCodecContext->frame_number);
 
