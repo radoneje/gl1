@@ -248,11 +248,11 @@ int work(){
         if(ret>0){
             logging("receive frame error ", ret);
         }
-        int isFrameFinished;
-        ret =avcodec_decode_video2(pCodecContext,frame,&isFrameFinished, packet);
-        if(ret>0){
-            logging("decode frame error ", ret);
-        }
+        int len, isFrameFinished;
+        len =avcodec_decode_video2(pCodecContext,frame,&isFrameFinished, packet);
+
+            logging("decode frame  &d", len);
+
         logging("receive frame %d %d", ii, pCodecContext->frame_number);
 
         /*ret = avcodec_receive_packet(pCodecContext, packet);
