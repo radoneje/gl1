@@ -189,7 +189,14 @@ static int open_input_file(const char *filename)
 
 int work(){
 
-
+    AVFormatContext* ctx_format = nullptr;
+    AVCodecContext* ctx_codec = nullptr;
+    AVCodec* codec = nullptr;
+    AVFrame* frame = av_frame_alloc();
+    int stream_idx;
+    const char* fin = argv[1];
+    AVStream *vid_stream = nullptr;
+    AVPacket* pkt = av_packet_alloc();
     int ret;
 
 
