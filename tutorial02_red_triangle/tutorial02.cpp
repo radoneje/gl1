@@ -188,25 +188,11 @@ static int open_input_file(const char *filename)
 }
 
 int work(){
-    AVFormatContext* ctx_format = nullptr;
-    AVCodecContext* ctx_codec = nullptr;
-    AVCodec* codec = nullptr;
-    AVFrame* frame = av_frame_alloc();
-    int stream_idx;
-    const char* fin = argv[1];
-    AVStream *vid_stream = nullptr;
-    AVPacket* pkt = av_packet_alloc();
+
 
     int ret;
 
 
-    if ((ret = avformat_open_input(&fmt_ctx, "/tmp/vcbr.mp4", NULL, NULL)) < 0) {
-        av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
-        return ret;
-    }
-
-
-    logging("work done");
 
     return 0;
 }
