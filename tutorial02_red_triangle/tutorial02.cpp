@@ -241,7 +241,7 @@ int work(){
         }
         if(packet->stream_index==videostream_index){
             logging("av_read_frame %d %d",ii , packet->stream_index );
-            ret = avcodec_send_packet(dec, packet);
+            ret = avcodec_send_packet(pCodecContext, packet);
         }
 
 /*
