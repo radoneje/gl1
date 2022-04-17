@@ -247,6 +247,20 @@ int work(){
                                          NULL,
                                          NULL,
                                          NULL);
+                //Allocate frame for storing image converted to RGB.
+                ////////////////////////////////////////////////////////////////////////////
+                AVFrame* pRGBFrame = av_frame_alloc();
+
+                pRGBFrame->format = AV_PIX_FMT_RGB24;
+                pRGBFrame->width = ctx_codec->width;
+                pRGBFrame->height = ctx_codec->height;
+
+                sts = av_frame_get_buffer(pRGBFrame, 0);
+
+                if (sts < 0)
+                {
+                    return;  //Error!
+                }
 
                 int ret = avcodec_send_packet(ctx_codec, pkt);
                 if (ret < 0 || ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
