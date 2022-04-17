@@ -232,6 +232,11 @@ int work(){
         std::cout << 5;
         return -1;
     }
+    int ii=0;
+        while(av_read_frame(ctx_format, pkt) >= 0) {
+            std::cout << "  av_read_frame" << ii << std::endl;;
+        }
+    }
 
 
     return 0;
