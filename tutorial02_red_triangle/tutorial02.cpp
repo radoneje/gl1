@@ -15,13 +15,7 @@
 #include <GLFW/glfw3.h>
 
 
-extern "C" {
-// Get declaration for f(int i, char c, float x)
 
-
-
-
-}
 extern "C" {
 // Get declaration for f(int i, char c, float x)
 #include <libavcodec/avcodec.h>
@@ -40,6 +34,7 @@ GLFWwindow* window;
 using namespace glm;
 
 #include <common/shader.hpp>
+#include <common/texture.hpp>
 
 static AVFormatContext *ifmt_ctx;
 typedef struct StreamContext {
