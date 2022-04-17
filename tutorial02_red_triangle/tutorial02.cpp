@@ -194,7 +194,7 @@ int work(){
     AVCodec* codec = nullptr;
     AVFrame* frame = av_frame_alloc();
     int stream_idx;
-    const char* fin = argv[1];
+    const char* fin = "/tmp/vcbr.mp4";
     AVStream *vid_stream = nullptr;
     AVPacket* pkt = av_packet_alloc();
     int ret;
