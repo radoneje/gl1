@@ -31,6 +31,7 @@ GLFWwindow* window;
 
 // Include GLM
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
 #include <common/shader.hpp>
