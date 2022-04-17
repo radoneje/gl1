@@ -365,7 +365,7 @@ int main( void )
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
 
-
+    GLuint Texture = loadBMP_custom("uvtemplate.bmp");
 
 
     float vertices[] = {
