@@ -199,7 +199,7 @@ int work(){
         return ret;
     }
 
-    loging("work done")
+    logging("work done")
 
     return 0;
 }
