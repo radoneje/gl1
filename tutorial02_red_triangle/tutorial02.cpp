@@ -473,6 +473,18 @@ int main( void )
 			0,                  // stride
 			(void*)0            // array buffer offset
 		);
+        // 2nd attribute buffer : UVs
+        glEnableVertexAttribArray(1);
+        glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+        glVertexAttribPointer(
+                1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+                2,                                // size : U+V => 2
+                GL_FLOAT,                         // type
+                GL_FALSE,                         // normalized?
+                0,                                // stride
+                (void*)0                          // array buffer offset
+        );
+
         // 2nd attribute buffer : colors
      /*   glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
