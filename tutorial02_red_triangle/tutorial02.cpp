@@ -455,6 +455,13 @@ int main( void )
 		// Use our shader
 		glUseProgram(programID);
 
+        // Bind our texture in Texture Unit 0
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, Texture);
+        // Set our "myTextureSampler" sampler to use Texture Unit 0
+        glUniform1i(TextureID, 0);
+
+
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
