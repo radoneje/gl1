@@ -59,6 +59,7 @@ static void logging(const char *fmt, ...)
     va_end( args );
     fprintf( stderr, "\n" );
 }
+s//Save RGB image as PPM file format
 static void ppm_save(unsigned char* buf, int wrap, int xsize, int ysize, char* filename)
 {
     FILE* f;
@@ -293,6 +294,9 @@ int work(){
                         std::cout << "sts != frame->height "  << std::endl;
                         return -1;  //Error!
                     }
+                    char buf[1024];
+                    snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", dec_ctx->frame_number);
+                    ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
                 }
 
             }
