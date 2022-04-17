@@ -290,7 +290,7 @@ int work(){
                               pRGBFrame->linesize);   //const int dstStride[]);
                     if (sts != frame->height)
                     {
-                        td::cout << "sts != frame->height "  << std::endl;
+                        std::cout << "sts != frame->height "  << std::endl;
                         return -1;  //Error!
                     }
                 }
