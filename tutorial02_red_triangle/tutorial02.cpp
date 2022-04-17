@@ -224,6 +224,14 @@ int work(){
              dec_ctx->time_base.num, dec_ctx->time_base.den,
              dec_ctx->sample_aspect_ratio.num, dec_ctx->sample_aspect_ratio.den);
     std::cout<<args;
+    int ii=0;
+    while (1) {
+        ii++;
+        if ((ret = av_read_frame(fmt_ctx, &packet)) < 0) {
+            logging("av_read_frame done %d", ii);
+            break;
+        }
+    }
 
     logging("work done");
 
