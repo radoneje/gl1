@@ -234,7 +234,7 @@ int work(){
     int ii=0;
     while (ii<100) {
         ii++;
-        ret = av_read_frame(pAVFormatContext, &packet)
+        ret = av_read_frame(pAVFormatContext, packet)
         if (ret < 0) {
             logging("ERR av_read_frame %d %d", ii);
             break;
