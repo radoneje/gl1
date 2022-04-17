@@ -208,6 +208,7 @@ int work(){
         std::cout << 2 << std::endl;
         return -1; // Couldn't find stream information
     }
+    av_dump_format(ctx_format, 0, fin, false);
 
 
     return 0;
