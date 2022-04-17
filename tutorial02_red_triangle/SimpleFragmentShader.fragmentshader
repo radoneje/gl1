@@ -4,11 +4,12 @@ in vec3 fragmentColor;
 
 // Ouput data
 out vec3 color;
-
+uniform sampler2D myTextureSampler;
 void main()
 {
 
 	// Output color = red 
-	color = fragmentColor;//vec3(1,0,0);
+	//color = fragmentColor;//vec3(1,0,0);
+	color = texture( myTextureSampler, UV ).rgb;
 
 }
