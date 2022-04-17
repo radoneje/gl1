@@ -188,12 +188,15 @@ static int open_input_file(const char *filename)
 }
 
 int work(){
+    AVFormatContext* ctx_format = nullptr;
+    AVCodecContext* ctx_codec = nullptr;
+    AVCodec* codec = nullptr;
+    AVFrame* frame = av_frame_alloc();
+    int stream_idx;
+    const char* fin = argv[1];
+    AVStream *vid_stream = nullptr;
+    AVPacket* pkt = av_packet_alloc();
 
-    static AVFormatContext *fmt_ctx;
-    static AVCodecContext *dec_ctx;
-    AVCodec *dec;
-    AVPacket packet;
-    static int video_stream_index = -1;
     int ret;
 
 
@@ -201,46 +204,7 @@ int work(){
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
         return ret;
     }
-    ret = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, &dec, 0);
-    if (ret < 0) {
-        av_log(NULL, AV_LOG_ERROR, "Cannot find a video stream in the input file\n");
-        return ret;
-    }
-    video_stream_index = ret;
-    /* create decoding context */
-    dec_ctx = avcodec_alloc_context3(dec);
-    if (!dec_ctx)
-        return AVERROR(ENOMEM);
-    avcodec_parameters_to_context(dec_ctx, fmt_ctx->streams[video_stream_index]->codecpar);
-    av_opt_set_int(dec_ctx, "refcounted_frames", 1, 0);
-    /* init the video decoder */
-    if ((ret = avcodec_open2(dec_ctx, dec, NULL)) < 0) {
-        av_log(NULL, AV_LOG_ERROR, "Cannot open video decoder\n");
-        return ret;
-    }
-    char args[512];
-    snprintf(args, sizeof(args),
-             "video_size=%dx%d:pix_fmt=%d:time_base=%d/%d:pixel_aspect=%d/%d",
-             dec_ctx->width, dec_ctx->height, dec_ctx->pix_fmt,
-             dec_ctx->time_base.num, dec_ctx->time_base.den,
-             dec_ctx->sample_aspect_ratio.num, dec_ctx->sample_aspect_ratio.den);
-    std::cout<<args;
-    int ii=0;
-    while (1) {
-        ii++;
-        if ((ret = av_read_frame(fmt_ctx, &packet)) < 0) {
-            logging("av_read_frame done %d", ii);
-            break;
-        }
-       // if (packet.stream_index == video_stream_index) {
-            logging("video_stream_index", ii);
-            ret = avcodec_send_packet(dec_ctx, &packet);
-            if (ret < 0) {
-                av_log(NULL, AV_LOG_ERROR, "Error while sending a packet to the decoder\n");
-                continue;
-            }
-        //}
-    }
+
 
     logging("work done");
 
