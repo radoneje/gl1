@@ -243,7 +243,7 @@ int work(){
             logging("av_read_frame %d %d",ii , packet->stream_index );
             ret = avcodec_send_packet(pCodecContext, packet);
             if (ret < 0) {
-                av_log(NULL, AV_LOG_ERROR, "Error while sending a packet to the decoder\n");
+                av_log(NULL, AV_LOG_ERROR, "Error while sending a packet to the decoder %d\n", pCodecContext->width);
                 break;
             }
         }
