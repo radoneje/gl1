@@ -1,6 +1,7 @@
 #version 330 core
 
-in vec3 fragmentColor;
+//in vec3 fragmentColor;
+in vec2 UV;
 
 // Ouput data
 out vec3 color;
