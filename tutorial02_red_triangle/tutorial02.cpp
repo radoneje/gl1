@@ -234,8 +234,10 @@ int work(){
     }
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
-            ii++;
-            std::cout << "  av_read_frame" << ii << std::endl;;
+            if (pkt->stream_index == stream_idx) {
+                ii++;
+                std::cout << "  av_read_frame" << ii << std::endl;;
+            }
         }
 
 
