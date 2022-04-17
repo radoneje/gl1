@@ -241,8 +241,18 @@ int work(){
                     std::cout << "avcodec_send_packet: " << ret  << " "<< AVERROR(EAGAIN) << " "<< AVERROR_EOF <<std::endl;
                     break;
                 }
-                std::cout << "  av_read_frame" << ii << std::endl;;
+                std::cout << "  av_read_frame " << ret << " " << ii << std::endl;;
+                while (ret  >= 0) {
+                    ret = avcodec_receive_frame(ctx_codec, frame);
+                    if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
+                        //std::cout << "avcodec_receive_frame: " << ret << std::endl;
+                        break;
+                    }
+                    std::cout << "frame: " << ctx_codec->frame_number << std::endl;
+                }
+
             }
+            av_packet_unref(pkt);
         }
 
 
