@@ -234,7 +234,13 @@ int work(){
     int ii=0;
     while (ii<100) {
         ii++;
-
+        ret = av_read_frame(pAVFormatContext, &packet)
+        if (ret < 0) {
+            logging("ERR av_read_frame %d %d", ii);
+            break;
+        }
+        logging("av_read_frame %d %d", ii);
+/*
         ret = avcodec_receive_frame(pCodecContext, frame);
         if (ret == AVERROR(EAGAIN)) {
             av_log(NULL, AV_LOG_ERROR, "EAGAIN\n");
@@ -252,8 +258,8 @@ int work(){
         len =avcodec_decode_video2(pCodecContext,frame,&isFrameFinished, packet);
 
             logging("decode frame  &d", len);
+*/
 
-        logging("receive frame %d %d", ii, pCodecContext->frame_number);
 
         /*ret = avcodec_receive_packet(pCodecContext, packet);
         if (ret == AVERROR(EAGAIN)) {
