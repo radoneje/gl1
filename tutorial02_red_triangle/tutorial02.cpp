@@ -302,9 +302,10 @@ int work(){
                 }
 
             }
-            av_frame_free(&pRGBFrame);
+
             av_packet_unref(pkt);
         }
+    av_frame_free(&pRGBFrame);
     avcodec_free_context(&ctx_codec);
     avformat_close_input(&ctx_format);
 
