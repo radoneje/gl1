@@ -708,7 +708,7 @@ int main( void )
 
         // Send our transformation to the currently bound shader,
         // in the "MVP" uniform
-     //   glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
         // Bind our texture in Texture Unit 0
         glActiveTexture(GL_TEXTURE0);
