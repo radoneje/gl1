@@ -219,6 +219,19 @@ int work(){
         std::cout << 4 << std::endl;
         return -1;
     }
+    codec = avcodec_find_decoder(vid_stream->codecpar->codec_id);
+    if (!codec) {
+        fprintf(stderr, "codec not found\n");
+        exit(1);
+    }
+    ctx_codec = avcodec_alloc_context3(codec);
+
+    if(avcodec_parameters_to_context(ctx_codec, vid_stream->codecpar)<0)
+        std::cout << 512;
+    if (avcodec_open2(ctx_codec, codec, nullptr)<0) {
+        std::cout << 5;
+        return -1;
+    }
 
 
     return 0;
