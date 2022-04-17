@@ -200,6 +200,17 @@ int work(){
     int ret;
 
 
+    av_register_all();
+
+    if (int ret = avformat_open_input(&ctx_format, fin, nullptr, nullptr) != 0) {
+        std::cout << 1 << std::endl;
+        return ret;
+    }
+    if (avformat_find_stream_info(ctx_format, nullptr) < 0) {
+        std::cout << 2 << std::endl;
+        return -1; // Couldn't find stream information
+    }
+
 
     return 0;
 }
