@@ -239,7 +239,10 @@ int work(){
             logging("ERR av_read_frame %d %d", ii);
             break;
         }
-        logging("av_read_frame %d %d",ii , packet->stream_index );
+        if(packet->stream_index==videostream_index){
+            logging("av_read_frame %d %d",ii , packet->stream_index );
+        }
+
 /*
         ret = avcodec_receive_frame(pCodecContext, frame);
         if (ret == AVERROR(EAGAIN)) {
