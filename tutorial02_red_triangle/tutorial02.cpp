@@ -400,7 +400,7 @@ int main( void )
         logging("failed to copy codec params to codec context");
         return -1;
     }
-    av_opt_set_int(pCodecContext, "refcounted_frames", 1, 0);
+    //av_opt_set_int(pCodecContext, "refcounted_frames", 1, 0);
 
     // Initialize the AVCodecContext to use the given AVCodec.
     // https://ffmpeg.org/doxygen/trunk/group__lavc__core.html#ga11f785a188d7d9df71621001465b0f1d
