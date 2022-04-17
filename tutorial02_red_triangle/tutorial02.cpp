@@ -198,6 +198,7 @@ int work(){
     AVStream *vid_stream = nullptr;
     AVPacket* pkt = av_packet_alloc();
     int ret;
+    int sts;
     struct SwsContext* sws_ctx = NULL;
 
 
@@ -233,34 +234,36 @@ int work(){
         std::cout << 5;
         return -1;
     }
+    sws_ctx = sws_getContext(ctx_codec->width,
+                             ctx_codec->height,
+                             ctx_codec->pix_fmt,
+                             ctx_codec->width,
+                             ctx_codec->height,
+                             AV_PIX_FMT_RGB24,
+                             SWS_BICUBIC,
+                             NULL,
+                             NULL,
+                             NULL);
+    //Allocate frame for storing image converted to RGB.
+    ////////////////////////////////////////////////////////////////////////////
+    AVFrame* pRGBFrame = av_frame_alloc();
+
+    pRGBFrame->format = AV_PIX_FMT_RGB24;
+    pRGBFrame->width = ctx_codec->width;
+    pRGBFrame->height = ctx_codec->height;
+
+    sts = av_frame_get_buffer(pRGBFrame, 0);
+
+    if (sts < 0)
+    {
+        return;  //Error!
+    }
+
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
             ii++;
             if (pkt->stream_index == stream_idx) {
-                sws_ctx = sws_getContext(ctx_codec->width,
-                                         ctx_codec->height,
-                                         ctx_codec->pix_fmt,
-                                         ctx_codec->width,
-                                         ctx_codec->height,
-                                         AV_PIX_FMT_RGB24,
-                                         SWS_BICUBIC,
-                                         NULL,
-                                         NULL,
-                                         NULL);
-                //Allocate frame for storing image converted to RGB.
-                ////////////////////////////////////////////////////////////////////////////
-                AVFrame* pRGBFrame = av_frame_alloc();
 
-                pRGBFrame->format = AV_PIX_FMT_RGB24;
-                pRGBFrame->width = ctx_codec->width;
-                pRGBFrame->height = ctx_codec->height;
-
-                sts = av_frame_get_buffer(pRGBFrame, 0);
-
-                if (sts < 0)
-                {
-                    return;  //Error!
-                }
 
                 int ret = avcodec_send_packet(ctx_codec, pkt);
                 if (ret < 0 || ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
@@ -275,7 +278,7 @@ int work(){
                         break;
                     }
                     std::cout << "frame: " << ctx_codec->frame_number << std::endl;
-                    int sts;
+
                     sts=sws_scale(sws_ctx,                //struct SwsContext* c,
                               frame->data,            //const uint8_t* const srcSlice[],
                               frame->linesize,        //const int srcStride[],
