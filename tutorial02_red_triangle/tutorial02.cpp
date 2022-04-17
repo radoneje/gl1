@@ -258,7 +258,7 @@ int work(){
     if (sts < 0)
     {
         std::cout << 4444 << std::endl;
-        return;  //Error!
+        return -1;  //Error!
     }
 
     int ii=0;
