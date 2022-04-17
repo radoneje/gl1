@@ -190,7 +190,8 @@ static int open_input_file(const char *filename)
 int work(){
 
     static AVFormatContext *fmt_ctx;
-
+    AVCodec *dec;
+    static int video_stream_index = -1;
     int ret;
 
 
@@ -198,6 +199,12 @@ int work(){
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
         return ret;
     }
+    ret = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, &dec, 0);
+    if (ret < 0) {
+        av_log(NULL, AV_LOG_ERROR, "Cannot find a video stream in the input file\n");
+        return ret;
+    }
+    video_stream_index = ret;
 
     logging("work done");
 
