@@ -244,7 +244,10 @@ int work(){
             av_log(NULL, AV_LOG_ERROR, "AVERROR_EOF\n");
             return 0;
         }
-        logging("receive frame %d\n", pCodecContext->frame_number);
+        if(ret>0){
+            logging("receive frame error ", ret);
+        }
+        logging("receive frame %d %d", i, pCodecContext->frame_number);
 
         /*ret = avcodec_receive_packet(pCodecContext, packet);
         if (ret == AVERROR(EAGAIN)) {
