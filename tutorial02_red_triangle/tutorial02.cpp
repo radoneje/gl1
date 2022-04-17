@@ -192,6 +192,7 @@ int work(){
     static AVFormatContext *fmt_ctx;
     static AVCodecContext *dec_ctx;
     AVCodec *dec;
+    AVPacket packet;
     static int video_stream_index = -1;
     int ret;
 
