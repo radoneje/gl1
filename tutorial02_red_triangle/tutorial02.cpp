@@ -236,7 +236,11 @@ int work(){
         while(av_read_frame(ctx_format, pkt) >= 0) {
             ii++;
             if (pkt->stream_index == stream_idx) {
-
+                int ret = avcodec_send_packet(ctx_codec, pkt);
+                if (ret < 0 || ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
+                    std::cout << "avcodec_send_packet: " << ret << std::endl;
+                    break;
+                }
                 std::cout << "  av_read_frame" << ii << std::endl;;
             }
         }
