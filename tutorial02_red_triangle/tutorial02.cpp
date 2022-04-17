@@ -231,7 +231,7 @@ int work(){
     av_log(NULL, AV_LOG_INFO, "before while\n");
 
     int ii=0;
-    while (1) {
+    while (i<10000) {
         ii++;
 
         ret = avcodec_receive_frame(pCodecContext, frame);
