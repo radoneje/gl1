@@ -244,6 +244,7 @@ int work(){
             ret = avcodec_send_packet(pCodecContext, packet);
         }
 
+
 /*
         ret = avcodec_receive_frame(pCodecContext, frame);
         if (ret == AVERROR(EAGAIN)) {
