@@ -27,6 +27,7 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libavutil/frame.h>
+#include <libavutil/opt.h>
 }
 
 
@@ -187,119 +188,18 @@ static int open_input_file(const char *filename)
 }
 
 int work(){
+
+    static AVFormatContext *fmt_ctx;
+
     int ret;
-    AVPacket *packet;
-     AVCodec *dec;
 
-    AVFrame *frame;
-    frame = av_frame_alloc();
-    unsigned int videostream_index=-1;
-    unsigned int i;
-    const char *url = "/tmp/vcbr.mp4";
 
-    ifmt_ctx = NULL;
-    packet = av_packet_alloc();
-
-    AVFormatContext *pAVFormatContext = NULL;
-    if ( avformat_open_input(&pAVFormatContext, url, NULL, NULL)< 0) {
+    if ((ret = avformat_open_input(&fmt_ctx, "/tmp/vcbr.mp4", NULL, NULL)) < 0) {
         av_log(NULL, AV_LOG_ERROR, "Cannot open input file\n");
         return ret;
     }
 
-
-
-/* select the video stream */
-    videostream_index = av_find_best_stream(pAVFormatContext, AVMEDIA_TYPE_VIDEO, -1, -1, &dec, 0);
-    if (videostream_index < 0) {
-        av_log(NULL, AV_LOG_ERROR, "Cannot find a video stream in the input file\n");
-        return ret;
-    }
-    logging("video stream index %d", videostream_index);
-
-    AVCodecContext *pCodecContext = avcodec_alloc_context3(dec);
-    AVCodecParameters* pCodecParameters=pAVFormatContext->streams[videostream_index]->codecpar;
-    if (avcodec_parameters_to_context(pCodecContext, pCodecParameters) < 0)
-    {
-        logging("failed to copy codec params to codec context");
-        return -1;
-    }
-
-    if(videostream_index<0)
-    {
-        logging("ERROR: no video stram find\n");
-        return  1;
-    }
-    av_log(NULL, AV_LOG_INFO, "before while\n");
-
-    int ii=0;
-    while (ii<100) {
-        ii++;
-        ret = av_read_frame(pAVFormatContext, packet);
-        if (ret < 0) {
-            logging("ERR av_read_frame %d %d", ii);
-            break;
-        }
-        if(packet->stream_index==videostream_index){
-            logging("av_read_frame %d %d",ii , packet->stream_index );
-            ret = avcodec_send_packet(pCodecContext, packet);
-            if (ret < 0) {
-                av_log(NULL, AV_LOG_ERROR, "Error while sending a packet to the decoder %d\n", pCodecContext->width);
-                break;
-            }
-        }
-
-
-/*
-        ret = avcodec_receive_frame(pCodecContext, frame);
-        if (ret == AVERROR(EAGAIN)) {
-            av_log(NULL, AV_LOG_ERROR, "EAGAIN\n");
-            continue;
-        }
-        if( ret == AVERROR_EOF)
-        {
-            av_log(NULL, AV_LOG_ERROR, "AVERROR_EOF\n");
-            return 0;
-        }
-        if(ret>0){
-            logging("receive frame error ", ret);
-        }
-        int len, isFrameFinished;
-        len =avcodec_decode_video2(pCodecContext,frame,&isFrameFinished, packet);
-
-            logging("decode frame  &d", len);
-*/
-
-
-        /*ret = avcodec_receive_packet(pCodecContext, packet);
-        if (ret == AVERROR(EAGAIN)) {
-            av_log(NULL, AV_LOG_ERROR, "EAGAIN\n");
-            continue;
-        }
-        if( ret == AVERROR_EOF)
-        {
-            av_log(NULL, AV_LOG_ERROR, "AVERROR_EOF\n");
-            return 0;
-        }
-        if (packet->stream_index == videostream_index) {
-            av_log(NULL, AV_LOG_INFO, "decode video stream\n");
-            int frameFinished;
-            //avcodec_decode_video2(pCodecContext, frame, &frameFinished, &packet);
-        }
-        if ((ret = av_read_frame(pAVFormatContext, packet)) < 0)
-        {
-          //  av_log(NULL, AV_LOG_ERROR, "ERROR av_read_frame\n");
-        }
-        else {
-            if (packet->stream_index == videostream_index) {
-                av_log(NULL, AV_LOG_INFO, "decode video stream\n");
-                int frameFinished;
-                avcodec_decode_video2(pCodecContext, frame, &frameFinished, &packet);
-            }
-
-
-        }
-         */
-    }
+    loging("work done")
 
     return 0;
 }
