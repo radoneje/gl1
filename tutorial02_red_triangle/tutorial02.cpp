@@ -288,6 +288,11 @@ int work(){
                               frame->height,          //int srcSliceH,
                               pRGBFrame->data,        //uint8_t* const dst[],
                               pRGBFrame->linesize);   //const int dstStride[]);
+                    if (sts != frame->height)
+                    {
+                        td::cout << "sts != frame->height "  << std::endl;
+                        return -1;  //Error!
+                    }
                 }
 
             }
