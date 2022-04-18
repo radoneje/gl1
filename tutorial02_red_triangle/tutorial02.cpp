@@ -377,17 +377,31 @@ int main(void) {
         //GLuint Texture = loadDDS("uvtemplate.DDS");
 
         finalFrameData_lock.lock();
-        std::cout << "render frame: " << finalFrameData.frameNumber << " "<< finalFrameData.data << std::endl;
-        if(finalFrameData.width>0)
-            glTexSubImage2D(GL_TEXTURE_2D, 0, 0,0, finalFrameData.width, finalFrameData.height, GL_RGB, GL_UNSIGNED_BYTE, finalFrameData.data);
+        std::cout << "render frame: " << finalFrameData.frameNumber << " " << std::endl;
 
         finalFrameData_lock.unlock();
         // Get a handle for our "myTextureSampler" uniform
-        GLuint TextureID = glGetUniformLocation(programID, "myTextureSampler");
+        GLuint TextureID;
+        if(finalFrameData.width==0) {
+            TextureID = glGetUniformLocation(programID, "myTextureSampler");
+            glBindTexture(GL_TEXTURE_2D, Texture);
+        }
+        else
+        {
+            glGenTextures(1, &TextureID);
+            glBindTexture(GL_TEXTURE_2D, Texture);
+            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, finalFrameData.width, finalFrameData.height, 0, GL_BGR, GL_UNSIGNED_BYTE, finalFrameData.data);
+        }
         // Bind our texture in Texture Unit 0
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, Texture);
+
+
+        ///
+        //if(finalFrameData.width>0)
+        //    glTexSubImage2D(GL_TEXTURE_2D, 0, 0,0, finalFrameData.width, finalFrameData.height, GL_RGB, GL_UNSIGNED_BYTE, finalFrameData.data);
+
+
         // Set our "myTextureSampler" sampler to use Texture Unit 0
         glUniform1i(TextureID, 0);
 
