@@ -551,7 +551,7 @@ int main( void )
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Open a window and create its OpenGL context
-    window = glfwCreateWindow( 1024, 768, "Tutorial 05 - Textured Cube", NULL, NULL);
+    window = glfwCreateWindow( 1280, 720, "Tutorial 05 - Textured Cube", NULL, NULL);
     if( window == NULL ){
         fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
         glfwTerminate();
@@ -588,7 +588,7 @@ int main( void )
     GLuint MatrixID = glGetUniformLocation(programID, "MVP");
 
     // Projection matrix : 45� Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-    glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 50.0f);
+    glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 50.0f);
     // Camera matrix
     glm::mat4 View       = glm::lookAt(
             glm::vec3(4,3,3), // Camera is at (4,3,3), in World Space
