@@ -46,6 +46,12 @@ typedef struct StreamContext {
 } StreamContext;
 static StreamContext *stream_ctx;
 
+static struct finalFrameData{
+    int width=0,
+    int height=0,
+    uint8_t*  data=NULL
+};
+
 static void logging(const char *fmt, ...)
 {
     va_list args;
