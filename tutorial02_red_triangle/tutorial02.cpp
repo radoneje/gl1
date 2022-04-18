@@ -161,6 +161,7 @@ int work(){
     }
 
     int frameDur = (ctx_codec->time_base.num*1000) /ctx_codec->time_base.den;
+    std::cout << "frameDur ->>>" <<  (ctx_codec->time_base.num*1000)  << std::endl;
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
 
