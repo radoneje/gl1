@@ -393,7 +393,7 @@ int main( void )
             glfwSwapBuffers(window);
             glfwPollEvents();
             finalFrameData_lock.lock();
-            std::cout << "render frame, width: "<< finalFrameData.width << std::endl;
+            std::cout << "render frame, width: "<< finalFrameData.width <<" " <<finalFrameData.frameNumber << std::endl;
             finalFrameData_lock.unlock();
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
