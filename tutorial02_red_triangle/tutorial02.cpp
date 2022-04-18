@@ -160,7 +160,7 @@ int work(){
         return -1;  //Error!
     }
 
-    int frameDur = (vid_stream->avg_frame_rate.num*1000) /vid_stream->avg_frame_rate.den;
+    int frameDur = (vid_stream->avg_frame_rate.den*1000) /vid_stream->avg_frame_rate.num;
 
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
@@ -183,7 +183,7 @@ int work(){
                     ii++;
                     int64_t pts = av_rescale(frame->pts, 1000000, AV_TIME_BASE);
                     int64_t now = av_gettime_relative() ;//- frame->start;
-                    std::cout << "vid_stream ->>>" <<  vid_stream->avg_frame_rate.num <<" / " << "<< "<< now << " " << frame->pkt_dts << std::endl;;// << vid_stream->avg_frame_rate.num << std::endl;
+                    std::cout << "vid_stream ->>>" <<  frameDur <<" / " << "<< "<< now << " " << frame->pkt_dts << std::endl;;// << vid_stream->avg_frame_rate.num << std::endl;
                    // int64_t pts = av_rescale(ist->dts, 1000000, AV_TIME_BASE);
                     /////////
                   //  std::cout << "frame: " << ctx_codec->frame_number << std::endl;
