@@ -200,10 +200,17 @@ int work(){
 }
 
 
+void threadFunction()
+{
+    // do smth
+   return work();
+
+}
 
 int main( void )
 {
-    return work();
+    std::thread thr(av);
+
 
     // Initialise GLFW
     if( !glfwInit() )
