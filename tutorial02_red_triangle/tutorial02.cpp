@@ -162,6 +162,10 @@ int work(){
 
     int frameDur = (vid_stream->avg_frame_rate.den*1000) /vid_stream->avg_frame_rate.num;
 
+    std::cout << av_gettime_relative()  << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(frameDur))
+    std::cout << av_gettime_relative()  << std::endl;
+
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
 
