@@ -601,7 +601,7 @@ int main( void )
     glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
     // Load the texture using any two methods
-    GLuint Texture = loadBMP_custom("uvtemplate.bmp");
+    GLuint Texture = loadBMP_custom("poster.bmp");
     //GLuint Texture = loadDDS("uvtemplate.DDS");
 
     // Get a handle for our "myTextureSampler" uniform
