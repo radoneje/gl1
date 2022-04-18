@@ -741,7 +741,7 @@ int main( void )
         );
 
         // Draw the triangle !
-        glDrawArrays(GL_TRIANGLES, 3, 1*3); // 12*3 indices starting at 0 -> 12 triangles
+        glDrawArrays(GL_TRIANGLES, 1*3, 1*3); // 12*3 indices starting at 0 -> 12 triangles
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
