@@ -366,7 +366,7 @@ int mainBak( void )
 	//GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
     GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
 
-    GLuint Texture = loadBMP_custom("uvtemplate.bmp");
+    GLuint Texture = loadBMP_custom("poster.bmp");
    // GLuint Texture = loadDDS("uvtemplate.DDS");
     GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
 
