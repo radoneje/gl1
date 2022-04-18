@@ -56,7 +56,13 @@ struct CfinalFrameData{
 };
 static CfinalFrameData finalFrameData;
 std::mutex finalFrameData_lock;
-
+static long now(void){
+    using namespace std::chrono;
+    milliseconds ms = duration_cast< milliseconds >(
+            system_clock::now().time_since_epoch()
+    );
+    return  ms.count();
+}
 static void logging(const char *fmt, ...)
 {
     va_list args;
@@ -163,18 +169,12 @@ int work(){
     int frameDur = (vid_stream->avg_frame_rate.den*1000) /vid_stream->avg_frame_rate.num;
 
     using namespace std::chrono;
-    milliseconds lastFrameTime = duration_cast< milliseconds >(
-            system_clock::now().time_since_epoch()
-    );
+    int lastFrameTime=now();
 
-
-
-    std::cout << lastFrameTime.count() << std::endl;
+    std::cout << lastFrameTime << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(frameDur));
-    lastFrameTime = duration_cast< milliseconds >(
-            system_clock::now().time_since_epoch()
-    );
-    std::cout << lastFrameTime.count() << " " << frameDur <<std::endl;
+    lastFrameTime = now();
+    std::cout << lastFrameTime << " " << frameDur <<std::endl;
 
 
 
