@@ -178,7 +178,7 @@ int work(){
                         break;
                     }
                     ii++;
-                    std::cout << "start_time_realtime " << ctx_format->start_time_realtime << std::endl;
+                    std::cout << "start_time_realtime " << ctx_format->fps_probe_size << std::endl;
                    // int64_t pts = av_rescale(ist->dts, 1000000, AV_TIME_BASE);
                     /////////
                   //  std::cout << "frame: " << ctx_codec->frame_number << std::endl;
