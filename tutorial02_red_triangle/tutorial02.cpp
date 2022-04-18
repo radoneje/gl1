@@ -164,7 +164,7 @@ int work(){
 
     std::cout << av_gettime_relative()  << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(frameDur));
-    std::cout << av_gettime_relative()  << std::endl;
+    std::cout << av_gettime_relative()  << " " << frameDur <<std::endl;
 
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
