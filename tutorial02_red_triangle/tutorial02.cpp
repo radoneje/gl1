@@ -377,7 +377,7 @@ int main(void) {
         //GLuint Texture = loadDDS("uvtemplate.DDS");
 
         finalFrameData_lock.lock();
-        std::cout << "render frame: " << finalFrameData.frameNumber << std::endl;
+        std::cout << "render frame: " << finalFrameData.frameNumber << " "<< << finalFrameData.data << std::endl;
         if(finalFrameData.width>0)
             glTexSubImage2D(GL_TEXTURE_2D, 0, 0,0, finalFrameData.width, finalFrameData.height, GL_RGB, GL_UNSIGNED_BYTE, finalFrameData.data);
 
