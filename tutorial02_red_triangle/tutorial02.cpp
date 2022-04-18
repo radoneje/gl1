@@ -614,6 +614,11 @@ int main( void )
             -1.0f,1.0f, 0.0f,
             1.0f, -1.0f, 0.0f,
 
+            1.0f,1.0f,0.0f,
+            -1.0f,1.0f, 0.0f,
+            1.0f, -1.0f, 0.0f,
+
+
     };
 
     // Two UV coordinatesfor each vertex. They were created with Blender.
