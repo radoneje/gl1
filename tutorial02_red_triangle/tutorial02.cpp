@@ -47,9 +47,9 @@ typedef struct StreamContext {
 static StreamContext *stream_ctx;
 
 static struct finalFrameData{
-    int width=0,
-    int height=0,
-    uint8_t*  data=NULL
+    static int width=0;
+            static int height=0;
+            static uint8_t*  data=NULL;
 };
 
 static void logging(const char *fmt, ...)
@@ -189,6 +189,7 @@ int work(){
                     char buf[1024];
                     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                     //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
+                    finalFrameData.width=pRGBFrame->width;
                     av_frame_unref(frame);
 
                 }
