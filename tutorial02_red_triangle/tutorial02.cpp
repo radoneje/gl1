@@ -164,9 +164,9 @@ int work(){
 
     std::time_t lastFrameTime = std::time(nullptr);
 
-    std::cout << std::asctime(std::localtime(&lastFrameTime)) << std::endl;
+    std::cout << lastFrameTime << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(frameDur));
-    std::cout << std::asctime(std::localtime(&lastFrameTime)) << " " << frameDur <<std::endl;
+    std::cout << std::time(nullptr) << " " << frameDur <<std::endl;
 
 
 
