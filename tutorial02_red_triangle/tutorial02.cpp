@@ -228,6 +228,7 @@ int work() {
                 finalFrameData.data = pRGBFrame->data[0];
                 finalFrameData.frameNumber = ctx_codec->frame_number;
                 finalFrameData_lock.unlock();
+                std::cout << "sizeof"<< sizeof(pRGBFrame->data[0]) <<std::endl;
                 av_frame_unref(frame);
 
             }
