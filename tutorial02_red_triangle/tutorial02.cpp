@@ -388,11 +388,15 @@ int main(void) {
         }
         else
         {
-            glGenTextures(1, &TextureID);
+            TextureID = glGetUniformLocation(programID, "myTextureSampler");
+            glBindTexture(GL_TEXTURE_2D, Texture);
+
+           /* glGenTextures(1, &TextureID);
             glBindTexture(GL_TEXTURE_2D, Texture);
             int dt[12]={255,255,255,255,255,255,255,255,255,255,255,255};
             glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, finalFrameData.width, finalFrameData.height, 0, GL_BGR, GL_UNSIGNED_BYTE, finalFrameData.data);
-        }
+        */
+            }
         // Bind our texture in Texture Unit 0
 
         glActiveTexture(GL_TEXTURE0);
