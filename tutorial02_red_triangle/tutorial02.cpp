@@ -7,6 +7,7 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include <mutex>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -48,10 +49,11 @@ static StreamContext *stream_ctx;
 
 struct CfinalFrameData{
      int width;
-             int height;
-             uint8_t*  data;
+     int height;
+     uint8_t*  data;
 };
 static CfinalFrameData finalFrameData;
+std::mutex finalFrameData_lock;
 
 static void logging(const char *fmt, ...)
 {
@@ -190,9 +192,12 @@ int work(){
                     char buf[1024];
                     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                     //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
+                    finalFrameData_lock.lock();
+
                     finalFrameData.width=pRGBFrame->width;
                     finalFrameData.width=pRGBFrame->height;
                     finalFrameData.data=pRGBFrame->data[0];
+                    finalFrameData_lock.unlock();
                     av_frame_unref(frame);
 
                 }
@@ -385,7 +390,9 @@ int main( void )
             // Swap buffers
             glfwSwapBuffers(window);
             glfwPollEvents();
-            std::cout << "render frame " << std::endl;
+            finalFrameData_lock.lock();
+            std::cout << "render frame, width: "<< finalFrameData.width << std::endl;
+            finalFrameData_lock.unlock();
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
 
