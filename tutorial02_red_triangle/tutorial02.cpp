@@ -160,7 +160,7 @@ int work(){
         return -1;  //Error!
     }
 
-    int frameDur = ( (float)ctx_codec->time_base.num*1000 /(float)ctx_codec->time_base.den);
+    int frameDur = (ctx_codec->time_base.num*1000) /ctx_codec->time_base.den;
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
 
