@@ -56,7 +56,9 @@ struct CfinalFrameData{
 };
 static CfinalFrameData finalFrameData;
 std::mutex finalFrameData_lock;
-static long now(void){
+
+
+static long nowTime(){
     using namespace std::chrono;
     milliseconds ms = duration_cast< milliseconds >(
             system_clock::now().time_since_epoch()
@@ -210,10 +212,10 @@ int work(){
                     char buf[1024];
 
                     long thisFrameTime=lastFrameTime+frameDur;
-                    if(thisFrameTime>now(void))
+                    if(thisFrameTime>nowTime())
                     {
-                        std::cout << "sleeping " <<  thisFrameTime-now(void) << std::endl;
-                        std::this_thread::sleep_for(std::chrono::milliseconds(thisFrameTime-now(void)));
+                        std::cout << "sleeping " <<  thisFrameTime-nowTime() << std::endl;
+                        std::this_thread::sleep_for(std::chrono::milliseconds(thisFrameTime-nowTime()));
                     }
 
                     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
