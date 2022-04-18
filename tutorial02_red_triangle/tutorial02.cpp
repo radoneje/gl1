@@ -119,6 +119,7 @@ int work(){
         std::cout << 4 << std::endl;
         return -1;
     }
+    std:cout<< " framerate: "<< vid_stream->avg_frame_rate.num << " " << vid_stream->avg_frame_rate.den << std::endl;
     codec = avcodec_find_decoder(vid_stream->codecpar->codec_id);
     if (!codec) {
         fprintf(stderr, "codec not found\n");
