@@ -168,6 +168,7 @@ int work(){
         return -1;  //Error!
     }
 
+    // задержка на частоту кадров
     int frameDur = (vid_stream->avg_frame_rate.den*1000) /vid_stream->avg_frame_rate.num;
     long lastFrameTime=0;
 
@@ -209,15 +210,16 @@ int work(){
                         std::cout << "sts != frame->height "  << std::endl;
                         return -1;  //Error!
                     }
-                    char buf[1024];
 
+                    // задержка на частоту кадров
                     long thisFrameTime=lastFrameTime+frameDur;
                     if(thisFrameTime>nowTime())
                     {
-                        std::cout << "sleeping " <<  thisFrameTime-nowTime() << std::endl;
                         std::this_thread::sleep_for(std::chrono::milliseconds(thisFrameTime-nowTime()));
                     }
                     lastFrameTime=nowTime();
+
+                    char buf[1024];
                     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                     //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
                     finalFrameData_lock.lock();
