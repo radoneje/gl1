@@ -609,14 +609,16 @@ int main( void )
 
     // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
+    float f=0.7f;
+    //0.71848f;
     static const GLfloat g_vertex_buffer_data[] = {
-            -1.0f,0.716, 0.0f,
-            -1.0f,-0.716,0.0f,
-            1.0f, -0.716, 0.0f,
+            -1.0f,f, 0.0f,
+            -1.0f,-f,0.0f,
+            1.0f, -f, 0.0f,
 
-            -1.0f,0.71848, 0.0f,
-            1.0f, -0.71848, 0.0f,
-            1.0f,0.71848,0.0f,
+            -1.0f,f, 0.0f,
+            1.0f, -f, 0.0f,
+            1.0f,0.f,0.0f,
 
 
 
