@@ -200,10 +200,11 @@ int work(){
 }
 
 
-void threadFunction()
+void av()
 {
     // do smth
-   return work();
+    work();
+   return
 
 }
 
