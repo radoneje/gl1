@@ -167,17 +167,7 @@ int work(){
     }
 
     int frameDur = (vid_stream->avg_frame_rate.den*1000) /vid_stream->avg_frame_rate.num;
-
-    using namespace std::chrono;
-    int lastFrameTime=now();
-
-    std::cout << lastFrameTime << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(frameDur));
-    lastFrameTime = now();
-    std::cout << lastFrameTime << " " << frameDur <<std::endl;
-
-
-
+    long lastFrameTime=0;
 
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
@@ -218,6 +208,14 @@ int work(){
                         return -1;  //Error!
                     }
                     char buf[1024];
+
+                    long thisFrameTime=lastFrameTime+frameDur;
+                    if(thisFrameTime>now(void))
+                    {
+                        std::cout << "sleeping " <<  thisFrameTime-now(void) << std::endl;
+                        std::this_thread::sleep_for(std::chrono::milliseconds(thisFrameTime-now(void)));
+                    }
+
                     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                     //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
                     finalFrameData_lock.lock();
