@@ -179,7 +179,7 @@ int work(){
                     }
                     ii++;
                     std::cout << "start_time_realtime " << ctx_format->start_time_realtime << std::endl;
-                    int64_t pts = av_rescale(ist->dts, 1000000, AV_TIME_BASE);
+                   // int64_t pts = av_rescale(ist->dts, 1000000, AV_TIME_BASE);
                     /////////
                   //  std::cout << "frame: " << ctx_codec->frame_number << std::endl;
 
