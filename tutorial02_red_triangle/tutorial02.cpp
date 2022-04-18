@@ -420,6 +420,7 @@ int main(void) {
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
+        glDeleteTextures(1, &Texture);
 
         // Swap buffers
         glfwSwapBuffers(window);
@@ -436,7 +437,7 @@ int main(void) {
     glDeleteBuffers(1, &vertexbuffer);
     glDeleteBuffers(1, &uvbuffer);
     glDeleteProgram(programID);
-    glDeleteTextures(1, &Texture);
+
     glDeleteVertexArrays(1, &VertexArrayID);
 
     // Close OpenGL window and terminate GLFW
