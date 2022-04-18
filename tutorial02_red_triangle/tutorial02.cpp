@@ -591,8 +591,8 @@ int main( void )
     glm::mat4 Projection = glm::perspective(glm::radians(30.0f), 16.0f / 9.0f, 0.1f, 50.0f);
     // Camera matrix
     glm::mat4 View       = glm::lookAt(
-            glm::vec3(0.8f,0,3), // Camera is at (4,3,3), in World Space
-            glm::vec3(0.8f,0,0), // and looks at the origin
+            glm::vec3(0.71848f,0,3), // Camera is at (4,3,3), in World Space
+            glm::vec3(0.71848f,0,0), // and looks at the origin
             glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
     );
     // Model matrix : an identity matrix (model will be at the origin)
