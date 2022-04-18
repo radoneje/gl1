@@ -376,9 +376,15 @@ int main(void) {
         GLuint Texture = loadBMP_custom("uvtemplate.bmp");
         //GLuint Texture = loadDDS("uvtemplate.DDS");
 
+        finalFrameData_lock.lock();
+        std::cout << "render frame, width: " <<  << " " << finalFrameData.frameNumber << std::endl;
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0,0, finalFrameData.width, finalFrameData.height, GL_RGB, GL_UNSIGNED_BYTE, finalFrameData.data[0]);
+
+        finalFrameData_lock.unlock();
         // Get a handle for our "myTextureSampler" uniform
         GLuint TextureID = glGetUniformLocation(programID, "myTextureSampler");
         // Bind our texture in Texture Unit 0
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, Texture);
         // Set our "myTextureSampler" sampler to use Texture Unit 0
@@ -417,9 +423,7 @@ int main(void) {
         // Swap buffers
         glfwSwapBuffers(window);
         glfwPollEvents();
-        finalFrameData_lock.lock();
-        std::cout << "render frame, width: " << finalFrameData.width << " " << finalFrameData.frameNumber << std::endl;
-        finalFrameData_lock.unlock();
+
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
 
