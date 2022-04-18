@@ -171,7 +171,7 @@ int work() {
 
     finalFrameData.width = 0;
     finalFrameData.height = 0;
-    finalFrameData.data = null;
+
     finalFrameData.frameNumber = -1;
     finalFrameData_lock.unlock();
 
