@@ -160,8 +160,8 @@ int work(){
         return -1;  //Error!
     }
 
-    int frameDur = (ctx_codec->time_base.num*1000) /ctx_codec->time_base.den;
-    std::cout << "frameDur ->>>" <<  (ctx_codec->time_base.num*1000)  << std::endl;
+    int frameDur = (ctx_codec->avg_frame_rate.num*1000) /ctx_codec->avg_frame_rate.den;
+
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
 
