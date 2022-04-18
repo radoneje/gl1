@@ -51,6 +51,7 @@ struct CfinalFrameData{
      int width;
      int height;
      uint8_t*  data;
+     long frameNumber;
 };
 static CfinalFrameData finalFrameData;
 std::mutex finalFrameData_lock;
@@ -175,7 +176,7 @@ int work(){
                         //std::cout << "avcodec_receive_frame: " << ret << std::endl;
                         break;
                     }
-                    std::cout << "frame: " << ctx_codec->frame_number << std::endl;
+                  //  std::cout << "frame: " << ctx_codec->frame_number << std::endl;
 
                     sts=sws_scale(sws_ctx,                //struct SwsContext* c,
                               frame->data,            //const uint8_t* const srcSlice[],
@@ -197,6 +198,7 @@ int work(){
                     finalFrameData.width=pRGBFrame->width;
                     finalFrameData.width=pRGBFrame->height;
                     finalFrameData.data=pRGBFrame->data[0];
+                    finalFrameData.frameNumber=ctx_codec->frame_number;
                     finalFrameData_lock.unlock();
                     av_frame_unref(frame);
 
