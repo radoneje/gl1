@@ -390,7 +390,7 @@ int main(void) {
         {
             glGenTextures(1, &TextureID);
             glBindTexture(GL_TEXTURE_2D, Texture);
-            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, finalFrameData.width, finalFrameData.height, 0, GL_BGR, GL_UNSIGNED_BYTE, finalFrameData.data);
+            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 2/*finalFrameData.width*/, 2/*finalFrameData.height*/, 0, GL_BGR, GL_UNSIGNED_BYTE, [255,255,255,255,255,255,255,255,255,255,255,255]);
         }
         // Bind our texture in Texture Unit 0
 
