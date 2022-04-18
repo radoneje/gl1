@@ -178,7 +178,7 @@ int work(){
                         break;
                     }
                     ii++;
-                    int64_t pts = av_rescale(frame->dts, 1000000, AV_TIME_BASE);
+                    int64_t pts = av_rescale(frame->pts, 1000000, AV_TIME_BASE);
                     int64_t now = av_gettime_relative() ;//- frame->start;
 
                     std::cout << "start_time_realtime " << pts << " "<< now << " " << frame->dts << std::endl;;// << vid_stream->avg_frame_rate.num << std::endl;
