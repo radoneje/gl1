@@ -162,9 +162,9 @@ int work(){
 
     int frameDur = (vid_stream->avg_frame_rate.den*1000) /vid_stream->avg_frame_rate.num;
 
-    std::cout << std::chrono::system_clock::now()  << std::endl;
+    std::cout << std::chrono::system_clock::now().time_since_epoch()).count()  << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(frameDur));
-    std::cout <<std::chrono::system_clock::now()  << " " << frameDur <<std::endl;
+    std::cout << std::chrono::system_clock::now().time_since_epoch()).count()  << " " << frameDur <<std::endl;
 
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
