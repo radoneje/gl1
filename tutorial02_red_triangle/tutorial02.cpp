@@ -323,7 +323,7 @@ int main( void )
 
     do{
 
-        for(int j=0; j<12;j++) {
+
 
             // Clear the screen
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -374,9 +374,10 @@ int main( void )
             // Swap buffers
             glfwSwapBuffers(window);
             glfwPollEvents();
-            std::cout << j << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-        }
+            std::cout << "render frame " << std::endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+
 
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
