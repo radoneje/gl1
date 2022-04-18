@@ -71,77 +71,7 @@ static void ppm_save(unsigned char* buf, int wrap, int xsize, int ysize, char* f
 
     fclose(f);
 }
-static void save_gray_frame(unsigned char *buf, int wrap, int xsize, int ysize, char *filename)
-{
-    FILE *f;
-    int i;
-    logging("save file %s",filename );
-    f = fopen(filename,"w");
-    // writing the minimal required header for a pgm file format
-    // portable graymap format -> https://en.wikipedia.org/wiki/Netpbm_format#PGM_example
-    fprintf(f, "P5\n%d %d\n%d\n", xsize, ysize, 255);
 
-    // writing line by line
-    for (i = 0; i < ysize; i++)
-        fwrite(buf + i * wrap, 1, xsize, f);
-    fclose(f);
-}
-static int decode_packet(AVPacket *pPacket, AVCodecContext *pCodecContext, AVFrame *pFrame)
-{
-    logging("decode frame");
-
-    int response = avcodec_send_packet(pCodecContext, pPacket);
-
-    if (response < 0) {
-        char  e[AV_ERROR_MAX_STRING_SIZE];
-        av_make_error_string(e,  AV_ERROR_MAX_STRING_SIZE, response);
-        logging("ERROR while sending a packet to the decoder: %s", e);
-        return response;
-    }
-    while (response >= 0) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000/30));
-        response = avcodec_receive_frame(pCodecContext, pFrame);
-        if (response == AVERROR(EAGAIN) || response == AVERROR_EOF) {
-            char  e[AV_ERROR_MAX_STRING_SIZE];
-            av_make_error_string(e,  AV_ERROR_MAX_STRING_SIZE, response);
-            logging("AVERROR %s",e);
-            break;
-        } else if (response < 0) {
-            logging("Error while receiving a frame from the decoder: ");
-            return response;
-        }
-
-        if (response >= 0) {
-            logging(
-                    "Frame %d (type=%c, size=%d bytes, format=%d) pts %d key_frame %d [DTS %d]",
-                    pCodecContext->frame_number,
-                    av_get_picture_type_char(pFrame->pict_type),
-                    pFrame->pkt_size,
-                    pFrame->format,
-                    pFrame->pts,
-                    pFrame->key_frame,
-                    pFrame->coded_picture_number
-            );
-
-            char frame_filename[1024];
-            snprintf(frame_filename, sizeof(frame_filename), "%s-%d.bmp", "frame", pCodecContext->frame_number);
-            // Check if the frame is a planar YUV 4:2:0, 12bpp
-            // That is the format of the provided .mp4 file
-            // RGB formats will definitely not give a gray image
-            // Other YUV image may do so, but untested, so give a warning
-            if (pFrame->format != AV_PIX_FMT_YUV420P)
-            {
-                logging("Warning: the generated file may not be a grayscale image, but could e.g. be just the R component if the video format is RGB");
-            }
-            // save a grayscale frame into a .pgm file
-            save_gray_frame(pFrame->data[0], pFrame->linesize[0], pFrame->width, pFrame->height, frame_filename);
-        }
-    }
-
-
-    return  0;
-
-}
 
 
 
@@ -273,6 +203,7 @@ int work(){
 
 int main( void )
 {
+    return work();
 
     // Initialise GLFW
     if( !glfwInit() )
