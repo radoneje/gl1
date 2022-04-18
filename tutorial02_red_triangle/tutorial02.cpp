@@ -752,7 +752,7 @@ int main( void )
             glfwSwapBuffers(window);
             glfwPollEvents();
             std::cout << j << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(3000))
+            std::this_thread::sleep_for(std::chrono::milliseconds(3000));
         }
 
     } // Check if the ESC key was pressed or the window was closed
