@@ -178,7 +178,7 @@ int work(){
                         break;
                     }
                     ii++;
-                    std::cout << "start_time_realtime " << vid_stream->avg_frame_rate.nam << std::endl;
+                    std::cout << "start_time_realtime " << vid_stream->avg_frame_rate.den << std::endl;
                    // int64_t pts = av_rescale(ist->dts, 1000000, AV_TIME_BASE);
                     /////////
                   //  std::cout << "frame: " << ctx_codec->frame_number << std::endl;
