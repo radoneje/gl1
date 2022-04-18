@@ -382,7 +382,7 @@ int main(void) {
         finalFrameData_lock.unlock();
         // Get a handle for our "myTextureSampler" uniform
         GLuint TextureID;
-        if(finalFrameData.width==0 || true) {
+        if(finalFrameData.width==0  {
             TextureID = glGetUniformLocation(programID, "myTextureSampler");
             glBindTexture(GL_TEXTURE_2D, Texture);
         }
@@ -390,7 +390,8 @@ int main(void) {
         {
             glGenTextures(1, &TextureID);
             glBindTexture(GL_TEXTURE_2D, Texture);
-            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 2/*finalFrameData.width*/, 2/*finalFrameData.height*/, 0, GL_BGR, GL_UNSIGNED_BYTE, [255,255,255,255,255,255,255,255,255,255,255,255]);
+            int dt[12]={255,255,255,255,255,255,255,255,255,255,255,255};
+            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 2/*finalFrameData.width*/, 2/*finalFrameData.height*/, 0, GL_BGR, GL_UNSIGNED_BYTE, &dt);
         }
         // Bind our texture in Texture Unit 0
 
