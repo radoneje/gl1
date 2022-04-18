@@ -217,7 +217,7 @@ int work(){
                         std::cout << "sleeping " <<  thisFrameTime-nowTime() << std::endl;
                         std::this_thread::sleep_for(std::chrono::milliseconds(thisFrameTime-nowTime()));
                     }
-
+                    lastFrameTime=nowTime();
                     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                     //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
                     finalFrameData_lock.lock();
