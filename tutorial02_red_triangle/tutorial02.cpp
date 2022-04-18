@@ -378,7 +378,8 @@ int main(void) {
 
         finalFrameData_lock.lock();
         std::cout << "render frame: " << finalFrameData.frameNumber << std::endl;
-        glTexSubImage2D(GL_TEXTURE_2D, 0, 0,0, finalFrameData.width, finalFrameData.height, GL_RGB, GL_UNSIGNED_BYTE, finalFrameData.data);
+        if(finalFrameData.width>0)
+            glTexSubImage2D(GL_TEXTURE_2D, 0, 0,0, finalFrameData.width, finalFrameData.height, GL_RGB, GL_UNSIGNED_BYTE, finalFrameData.data);
 
         finalFrameData_lock.unlock();
         // Get a handle for our "myTextureSampler" uniform
