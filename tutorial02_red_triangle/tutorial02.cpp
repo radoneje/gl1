@@ -50,7 +50,7 @@ static StreamContext *stream_ctx;
 struct CfinalFrameData {
     int width;
     int height;
-    uint8_t *data;
+    unsigned char  *data;
     long frameNumber;
 };
 static CfinalFrameData finalFrameData;
@@ -391,7 +391,7 @@ int main(void) {
             glGenTextures(1, &TextureID);
             glBindTexture(GL_TEXTURE_2D, Texture);
             int dt[12]={255,255,255,255,255,255,255,255,255,255,255,255};
-            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 2/*finalFrameData.width*/, 2/*finalFrameData.height*/, 0, GL_BGR, GL_UNSIGNED_BYTE, &dt);
+            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, finalFrameData.width, finalFrameData.height, 0, GL_BGR, GL_UNSIGNED_BYTE, finalFrameData.data);
         }
         // Bind our texture in Texture Unit 0
 
