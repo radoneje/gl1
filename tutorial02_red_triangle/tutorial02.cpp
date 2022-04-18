@@ -47,9 +47,9 @@ typedef struct StreamContext {
 static StreamContext *stream_ctx;
 
 static struct finalFrameData{
-    static int width=0;
-            static int height=0;
-            static uint8_t*  data=NULL;
+    static int width;
+            static int height;
+            static uint8_t*  data;
 };
 
 static void logging(const char *fmt, ...)
