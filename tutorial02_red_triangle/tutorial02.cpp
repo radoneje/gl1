@@ -161,7 +161,7 @@ int work(){
 
     int ii=0;
         while(av_read_frame(ctx_format, pkt) >= 0) {
-            ii++;
+
             if (pkt->stream_index == stream_idx) {
 
 
@@ -177,6 +177,10 @@ int work(){
                         //std::cout << "avcodec_receive_frame: " << ret << std::endl;
                         break;
                     }
+                    ii++;
+                    std::cout << "start_time_realtime " << ctx_format->start_time_realtime << std::endl;
+                    int64_t pts = av_rescale(ist->dts, 1000000, AV_TIME_BASE);
+                    /////////
                   //  std::cout << "frame: " << ctx_codec->frame_number << std::endl;
 
                     sts=sws_scale(sws_ctx,                //struct SwsContext* c,
