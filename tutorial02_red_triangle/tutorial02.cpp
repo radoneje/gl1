@@ -597,7 +597,7 @@ void Reshape (int width, int height)
 void Display ()
 {
    // std::cout << "Display";
-    glClearColor (1.0, 1.0, 1.0, 0.0);
+    glClearColor (255.0, 1.0, 1.0, 0.0);
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable (GL_TEXTURE_2D);
     glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
@@ -605,7 +605,7 @@ void Display ()
 
     glBegin(GL_QUADS);
     glTexCoord2f(0,0);
-    glVertex3f(-5.0,5,-8);
+    glVertex3f(-2.0,5,-8);
     glTexCoord2f(0,1);
     glVertex3f(-5.5,-5,-8);
     glTexCoord2f(1,1);
