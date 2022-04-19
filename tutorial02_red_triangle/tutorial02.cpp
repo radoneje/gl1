@@ -416,7 +416,7 @@ int main(void) {
 
             if (inFile == NULL)
             {
-                printf ("Can't open input file %s. Exiting.\n",fn);
+                printf ("Can't open input file %s. Exiting.\n",buf);
                 exit (1);
             }
 
