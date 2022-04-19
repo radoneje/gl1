@@ -529,7 +529,8 @@ void Display ()
                               ImageOne.image.pixels);
         }
         catch{
-            std:cout<< "Error"<< std;:endl;
+            finalFrameData.width=0;
+            std:cout<< "Error"<< std::endl;
         }
     }
 
