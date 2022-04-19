@@ -52,6 +52,7 @@ struct CfinalFrameData {
     int height;
     unsigned char  *data;
     long frameNumber;
+    int linesize;
 };
 static CfinalFrameData finalFrameData;
 std::mutex finalFrameData_lock;
@@ -226,9 +227,10 @@ int work() {
                 finalFrameData.width = pRGBFrame->width;
                 finalFrameData.height = pRGBFrame->height;
                 finalFrameData.data = pRGBFrame->data[0];
+                finalFrameData.linesize = pRGBFrame->linesize[0]
                 finalFrameData.frameNumber = ctx_codec->frame_number;
                 finalFrameData_lock.unlock();
-                std::cout << "sizeof"<< sizeof(*pRGBFrame->data) <<std::endl;
+                std::cout << "sizeof"<< sizeof(*pRGBFrame->data[0]) <<std::endl;
                 av_frame_unref(frame);
 
             }
@@ -391,6 +393,7 @@ int main(void) {
         {
             TextureID = glGetUniformLocation(programID, "myTextureSampler");
             glBindTexture(GL_TEXTURE_2D, Texture);
+            ppm_save(finalFrameData.data, finalFrameData.linesize, finalFrameData.width, finalFrameData.height, "/var/www/video-broadcast.space/1.ppm");
 
            /* glGenTextures(1, &TextureID);
             glBindTexture(GL_TEXTURE_2D, Texture);
