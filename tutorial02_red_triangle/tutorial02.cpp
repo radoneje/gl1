@@ -573,7 +573,7 @@ void Init ()
 
 
     char buf[1024];
-    snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/10.ppm");
+    snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/102.ppm");
 
     ImageOne.ReadPPMImage(buf);
     ImageOne.Prepare(1) ;
