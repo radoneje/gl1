@@ -2,7 +2,7 @@
 // Created by Denis Shevchenko on 19.04.2022.
 //
 #include <fstream>
-#include <glut.h>
+#include <GL/glut.h>
 #pragma warning (disable : 4996)
 #include "Texture.h"
 
