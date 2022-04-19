@@ -393,7 +393,10 @@ int main(void) {
         {
             TextureID = glGetUniformLocation(programID, "myTextureSampler");
             glBindTexture(GL_TEXTURE_2D, Texture);
-            ppm_save(finalFrameData.data, finalFrameData.linesize, finalFrameData.width, finalFrameData.height, "/var/www/video-broadcast.space/1.ppm");
+            char buf[1024];
+            snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/1.ppm");
+
+            ppm_save(finalFrameData.data, finalFrameData.linesize, finalFrameData.width, finalFrameData.height, buf);
 
            /* glGenTextures(1, &TextureID);
             glBindTexture(GL_TEXTURE_2D, Texture);
