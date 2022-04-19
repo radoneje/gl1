@@ -515,7 +515,7 @@ void Reshape (int width, int height)
 void Display ()
 {
     if(finalFrameData.width>0) {
-        glBindTexture (GL_TEXTURE_2D, texName);
+        glBindTexture (GL_TEXTURE_2D, 1);
 
         finalFrameData_lock.lock();
             ImageOne.image.width = finalFrameData.width;
