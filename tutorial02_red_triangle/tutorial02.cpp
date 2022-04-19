@@ -227,7 +227,7 @@ int work() {
                 finalFrameData.width = pRGBFrame->width;
                 finalFrameData.height = pRGBFrame->height;
                 finalFrameData.data = pRGBFrame->data[0];
-                finalFrameData.linesize = pRGBFrame->linesize[0]
+                finalFrameData.linesize = pRGBFrame->linesize[0];
                 finalFrameData.frameNumber = ctx_codec->frame_number;
                 finalFrameData_lock.unlock();
                 std::cout << "sizeof"<< sizeof(*pRGBFrame->data[0]) <<std::endl;
