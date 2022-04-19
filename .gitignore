@@ -11,6 +11,6 @@ Thumbs.db
 OpenGL-tutorial_v*
 **.mtl
 .DS_Store
-
+CMakeLists.txt
 # Project exclude paths
 /cmake-build-debug/

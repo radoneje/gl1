@@ -16,7 +16,7 @@
 #include <GLFW/glfw3.h>
 
 ///
-#include <glut.h>
+#include <GL/glut.h>
 #include "Texture.h"
 
 

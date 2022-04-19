@@ -75,7 +75,7 @@ add_executable(tutorial02_red_triangle
 	
 	tutorial02_red_triangle/SimpleFragmentShader.fragmentshader
 	tutorial02_red_triangle/SimpleVertexShader.vertexshader
-)
+		tutorial02_red_triangle/Texture.h tutorial02_red_triangle/Texture.cpp)
 target_link_libraries(tutorial02_red_triangle
 	${ALL_LIBS}
 )
