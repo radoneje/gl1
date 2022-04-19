@@ -385,7 +385,7 @@ int main(void) {
         finalFrameData_lock.unlock();
         // Get a handle for our "myTextureSampler" uniform
         GLuint TextureID;
-        if(finalFrameData.width==0 ) {
+        if(finalFrameData.width==0 || true ) {
             TextureID = glGetUniformLocation(programID, "myTextureSampler");
             glBindTexture(GL_TEXTURE_2D, Texture);
         }
