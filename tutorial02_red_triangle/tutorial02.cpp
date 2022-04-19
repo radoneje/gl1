@@ -523,9 +523,14 @@ void Display ()
             ImageOne.image.pixels = finalFrameData.data;
            // ImageOne.Prepare(1);
         finalFrameData_lock.unlock();
-        gluBuild2DMipmaps(GL_TEXTURE_2D,  GL_RGB, ImageOne.image.width,
-                          ImageOne.image.height,  GL_RGB, GL_UNSIGNED_BYTE,
-                          ImageOne.image.pixels);
+        try {
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, ImageOne.image.width,
+                              ImageOne.image.height, GL_RGB, GL_UNSIGNED_BYTE,
+                              ImageOne.image.pixels);
+        }
+        catch{
+            std:cout<< "Error"<< std;:endl;
+        }
     }
 
     /*
