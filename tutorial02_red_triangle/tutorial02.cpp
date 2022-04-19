@@ -449,7 +449,7 @@ int main(void) {
                 exit (1);
             }
             else
-                printf("Reading image %s of size %dx%d\n", fn, width, height);
+                printf("Reading image %s of size %dx%d\n", "", width, height);
 
 
             fread (pixels, sizeof (unsigned char), numChannels * width * height, inFile);
