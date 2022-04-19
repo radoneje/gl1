@@ -576,12 +576,13 @@ void Init ()
     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/102.ppm");
 
     ImageOne.ReadPPMImage(buf);
-    ImageOne.Prepare(1) ;
+
 }
 
 void Reshape (int width, int height)
 {
     std::cout << "reshape"<< width << " " << height <<std::endl ;
+    ImageOne.Prepare(1) ;
     glViewport (0, 0, width, height);
 
     glMatrixMode (GL_PROJECTION);
