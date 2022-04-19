@@ -391,12 +391,94 @@ int main(void) {
         }
         else
         {
-            TextureID = glGetUniformLocation(programID, "myTextureSampler");
-            glBindTexture(GL_TEXTURE_2D, Texture);
+
+
             char buf[1024];
             snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/10.ppm");
 
             ppm_save(finalFrameData.data, finalFrameData.linesize, finalFrameData.width, finalFrameData.height, buf);
+
+            ////////////
+            FILE* inFile = fopen (buf,"rb");
+            int tmpint;
+            char str[100];
+
+            unsigned char* pixels;
+            int width;
+            int height;
+            int numChannels;
+
+
+            GLuint texName;
+
+            glGenTextures (1, &texName);
+
+
+            if (inFile == NULL)
+            {
+                printf ("Can't open input file %s. Exiting.\n",fn);
+                exit (1);
+            }
+
+            fscanf (inFile,"P%d\n", &tmpint);
+
+            if (tmpint != 6)
+            {
+                printf ("Input file is not ppm. Exiting.\n");
+                exit (1);
+            }
+            // skip comments embedded in header
+
+            fgets (str,100,inFile);
+            while (str[0]=='#')
+                fgets(str,100,inFile);
+
+            sscanf (str,"%d %d",&width, &height);
+            fgets (str,100,inFile);
+            sscanf (str,"%d",&tmpint);
+
+            if (tmpint != 255)
+                printf("Warning: maxvalue is not 255 in ppm file\n");
+
+            numChannels = 3;
+            pixels = (unsigned char*) malloc (numChannels * width * height * sizeof (unsigned char));
+
+            if (pixels == NULL)
+            {
+                printf ("Can't allocate image of size %dx%d. Exiting\n", width, height);
+                exit (1);
+            }
+            else
+                printf("Reading image %s of size %dx%d\n", fn, width, height);
+
+
+            fread (pixels, sizeof (unsigned char), numChannels * width * height, inFile);
+
+            fclose (inFile);
+            ////////////
+
+
+
+            glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
+
+            glBindTexture (GL_TEXTURE_2D, 1);
+
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width,
+                         height, 0, GL_RGB, GL_UNSIGNED_BYTE,
+                         pixels);
+
+            glEnable (GL_TEXTURE_2D);
+            glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
+            glBindTexture (GL_TEXTURE_2D, texName);
+
+            ///////////
+
+          //  TextureID = glGetUniformLocation(programID, "myTextureSampler");
+           // glBindTexture(GL_TEXTURE_2D, Texture);
 
            /* glGenTextures(1, &TextureID);
             glBindTexture(GL_TEXTURE_2D, Texture);
