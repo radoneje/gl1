@@ -515,10 +515,17 @@ void Reshape (int width, int height)
 void Display ()
 {
     if(finalFrameData.width>0) {
-        ImageOne.image.width = finalFrameData.width;
-        ImageOne.image.height = finalFrameData.height;
-        ImageOne.image.pixels = finalFrameData.data;
-        ImageOne.Prepare(1);
+        glBindTexture (GL_TEXTURE_2D, texName);
+
+        finalFrameData_lock.lock();
+            ImageOne.image.width = finalFrameData.width;
+            ImageOne.image.height = finalFrameData.height;
+            ImageOne.image.pixels = finalFrameData.data;
+           // ImageOne.Prepare(1);
+        finalFrameData_lock.unlock();
+        gluBuild2DMipmaps(GL_TEXTURE_2D,  GL_RGB, ImageOne.image.width,
+                          ImageOne.image.height,  GL_RGB, GL_UNSIGNED_BYTE,
+                          ImageOne.image.pixels)
     }
 
     /*
