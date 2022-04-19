@@ -609,7 +609,7 @@ void Display ()
     glVertex3f(-5.5,-5,-8);
     glTexCoord2f(0,1);
     glVertex3f(5,-5,-8);
-    glTexCoord2f(0,1);
+    glTexCoord2f(0,0);
     glVertex3f(5,5,-8);
     glEnd();
     glDisable(GL_TEXTURE_2D);
