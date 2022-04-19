@@ -596,7 +596,7 @@ void Display ()
 {
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable (GL_TEXTURE_2D);
-    glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
+    glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
     glBindTexture (GL_TEXTURE_2D, ImageOne.texName);
 
     glBegin(GL_QUADS);
