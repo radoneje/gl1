@@ -581,6 +581,7 @@ void Init ()
 
 void Reshape (int width, int height)
 {
+    std::cout << "reshape"<< width;
     glViewport (0, 0, width, height);
 
     glMatrixMode (GL_PROJECTION);
