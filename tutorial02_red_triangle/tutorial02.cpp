@@ -15,6 +15,10 @@
 // Include GLFW
 #include <GLFW/glfw3.h>
 
+///
+#include <glut.h>
+#include "Texture.h"
+
 
 extern "C" {
 // Get declaration for f(int i, char c, float x)
@@ -37,6 +41,7 @@ using namespace glm;
 
 #include <common/shader.hpp>
 #include <common/texture.hpp>
+
 
 static AVFormatContext *ifmt_ctx;
 typedef struct StreamContext {
@@ -255,7 +260,7 @@ void av() {
 
 }
 
-int main(void) {
+int mainbak(void) {
     std::thread thr(av);
 
 
@@ -553,5 +558,75 @@ int main(void) {
 
     return 0;
 }
+///////////////
+const float fMinX = -5.0, fMinY = -5.0, fNearZ = 1.0,
+        fMaxX = 5.0 , fMaxY = 5.0 , fFarZ = 10.0;
 
+Texture ImageOne ;
+
+void Init ()
+{
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    glEnable (GL_DEPTH_TEST);
+
+    glGenTextures (1, &ImageOne.texName);
+    ImageOne.ReadPPMImage("wood_1.ppm");
+    ImageOne.Prepare(1) ;
+}
+
+void Reshape (int width, int height)
+{
+    glViewport (0, 0, width, height);
+
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity ();
+
+    glOrtho (fMinX, fMaxX, fMinY, fMaxY, fNearZ, fFarZ);
+
+    glMatrixMode (GL_MODELVIEW);
+    glLoadIdentity ();
+}
+
+void Display ()
+{
+    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable (GL_TEXTURE_2D);
+    glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
+    glBindTexture (GL_TEXTURE_2D, ImageOne.texName);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0,1);
+    glVertex3f(-5.5,5,-6);
+    glTexCoord2f(0,0);
+    glVertex3f(-5.5,-5,-6);
+    glTexCoord2f(1,0);
+    glVertex3f(5,-5,-6);
+    glTexCoord2f(1,1);
+    glVertex3f(5,5,-6);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+
+    glutSwapBuffers ();
+    glFlush ();
+}
+
+void main (int argc, char **argv)
+{
+    // init GLUT and create window
+    glutInit (&argc, argv);
+    glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowPosition(100,100);
+    glutInitWindowSize(500,500);
+    glutCreateWindow ("OpenGL - Rotating Cubes");
+
+    Init ();
+
+    // register callbacks
+    glutDisplayFunc (Display);
+    glutReshapeFunc (Reshape);
+    glutIdleFunc (Display);     // used in animation
+
+    // enter GLUT event processing cycle
+    glutMainLoop();
+}
 
