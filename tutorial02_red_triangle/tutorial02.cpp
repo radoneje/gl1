@@ -595,6 +595,7 @@ void Reshape (int width, int height)
 
 void Display ()
 {
+    std::cout << "Display"<< width;
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable (GL_TEXTURE_2D);
     glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
@@ -622,7 +623,7 @@ int main (int argc, char **argv)
     glutInit (&argc, argv);
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowPosition(0,0);
-    glutInitWindowSize(1280,720);
+    glutInitWindowSize(1280,72);
     glutCreateWindow ("OpenGL - Rotating Cubes");
 
     Init ();
