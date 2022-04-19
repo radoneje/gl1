@@ -620,8 +620,8 @@ int main (int argc, char **argv)
     // init GLUT and create window
     glutInit (&argc, argv);
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowPosition(100,100);
-    glutInitWindowSize(500,500);
+    glutInitWindowPosition(0,0);
+    glutInitWindowSize(1280,720);
     glutCreateWindow ("OpenGL - Rotating Cubes");
 
     Init ();
