@@ -603,11 +603,11 @@ void Display ()
     glBindTexture (GL_TEXTURE_2D, ImageOne.texName);
 
     glBegin(GL_QUADS);
-    glTexCoord2f(1,0);
+    glTexCoord2f(0,1);
     glVertex3f(-5.5,5,-8);
     glTexCoord2f(1,1);
     glVertex3f(-5.5,-5,-8);
-    glTexCoord2f(0,1);
+    glTexCoord2f(1,0);
     glVertex3f(5,-5,-8);
     glTexCoord2f(0,0);
     glVertex3f(5,5,-8);
