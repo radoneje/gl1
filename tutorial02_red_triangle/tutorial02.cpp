@@ -570,7 +570,12 @@ void Init ()
     glEnable (GL_DEPTH_TEST);
 
     glGenTextures (1, &ImageOne.texName);
-    ImageOne.ReadPPMImage("wood_1.ppm");
+    char f[];
+
+    char buf[1024];
+    snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/10.ppm");
+
+    ImageOne.ReadPPMImage(buf);
     ImageOne.Prepare(1) ;
 }
 
@@ -610,7 +615,7 @@ void Display ()
     glFlush ();
 }
 
-void main (int argc, char **argv)
+int main (int argc, char **argv)
 {
     // init GLUT and create window
     glutInit (&argc, argv);
@@ -628,5 +633,6 @@ void main (int argc, char **argv)
 
     // enter GLUT event processing cycle
     glutMainLoop();
+    return 0;
 }
 
