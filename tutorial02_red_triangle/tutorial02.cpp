@@ -570,7 +570,7 @@ void Init ()
     glEnable (GL_DEPTH_TEST);
 
     glGenTextures (1, &ImageOne.texName);
-    char f[];
+
 
     char buf[1024];
     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/10.ppm");
