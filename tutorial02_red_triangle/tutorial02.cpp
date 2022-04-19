@@ -621,6 +621,8 @@ void Display ()
 
 int main (int argc, char **argv)
 {
+    std::thread thr(av);
+
     // init GLUT and create window
     glutInit (&argc, argv);
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
