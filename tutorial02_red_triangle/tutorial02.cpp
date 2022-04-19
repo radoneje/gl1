@@ -525,7 +525,7 @@ void Display ()
         finalFrameData_lock.unlock();
         gluBuild2DMipmaps(GL_TEXTURE_2D,  GL_RGB, ImageOne.image.width,
                           ImageOne.image.height,  GL_RGB, GL_UNSIGNED_BYTE,
-                          ImageOne.image.pixels)
+                          ImageOne.image.pixels);
     }
 
     /*
