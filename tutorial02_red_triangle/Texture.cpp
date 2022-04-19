@@ -43,7 +43,7 @@ void Texture::ReadPPMImage (char* fn)
 
     if (tmpint != 6)
     {
-        printf ("Input file is not ppm. Exiting.\n");
+        printf ("Input file is not ppm. Exiting. %d \n", tmpint);
         exit (1);
     }
 
