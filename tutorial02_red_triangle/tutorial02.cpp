@@ -514,6 +514,13 @@ void Reshape (int width, int height)
 
 void Display ()
 {
+    if(finalFrameData.width>0) {
+        ImageOne.image.width = finalFrameData.width;
+        ImageOne.image.height = finalFrameData.height;
+        ImageOne.image.pixels = finalFrameData.data;
+        ImageOne.Prepare(1);
+    }
+
     /*
      *  finalFrameData_lock.lock();
 
@@ -559,7 +566,7 @@ int main (int argc, char **argv)
     glutInitWindowSize(1280,720);
     glutCreateWindow ("OpenGL - Rotating Cubes");
 
-    Init ();
+    Init();
 
     // register callbacks
     glutDisplayFunc (Display);
