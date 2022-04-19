@@ -230,7 +230,7 @@ int work() {
                 finalFrameData.linesize = pRGBFrame->linesize[0];
                 finalFrameData.frameNumber = ctx_codec->frame_number;
                 finalFrameData_lock.unlock();
-                std::cout << "sizeof"<< sizeof(*pRGBFrame->data[0]) <<std::endl;
+                //std::cout << "sizeof"<< sizeof(*pRGBFrame->data[0]) <<std::endl;
                 av_frame_unref(frame);
 
             }
@@ -394,7 +394,7 @@ int main(void) {
             TextureID = glGetUniformLocation(programID, "myTextureSampler");
             glBindTexture(GL_TEXTURE_2D, Texture);
             char buf[1024];
-            snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/1.ppm");
+            snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/10.ppm");
 
             ppm_save(finalFrameData.data, finalFrameData.linesize, finalFrameData.width, finalFrameData.height, buf);
 
