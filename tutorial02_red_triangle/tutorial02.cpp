@@ -530,11 +530,7 @@ void Display ()
                               ImageOne.image.pixels);
         }
 
-    }
-    catch{
-        finalFrameData.width=0;
-        std:cout<< "Error"<< std::endl;
-    }
+
 
 
     glClearColor (0.0, 0.0, 1.0, 0.0);
@@ -557,6 +553,11 @@ void Display ()
 
     glutSwapBuffers ();
     glFlush ();
+    }
+    catch{
+        finalFrameData.width=0;
+        std:cout<< "Error"<< std::endl;
+    }
 }
 
 int main (int argc, char **argv)
