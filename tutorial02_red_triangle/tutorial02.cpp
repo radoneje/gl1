@@ -514,7 +514,7 @@ void Reshape (int width, int height)
 
 void Display ()
 {
-    return;
+
     try {
     if(finalFrameData.width>0) {
         std::cout<< "finalFrameData.data "  << (sizeof(finalFrameData.data)/sizeof(*finalFrameData.data)) << std::endl;
