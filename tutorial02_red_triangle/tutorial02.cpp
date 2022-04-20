@@ -237,7 +237,7 @@ int work() {
                 finalFrameData_lock.unlock();
 
                 //std::cout << "sizeof"<< sizeof(*pRGBFrame->data[0]) <<std::endl;
-                av_frame_unref(frame);
+             //   av_frame_unref(frame);
 
             }
 
