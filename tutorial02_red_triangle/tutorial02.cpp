@@ -514,7 +514,7 @@ void Reshape (int width, int height)
 
 void Display ()
 {
-    returm;
+    return;
     try {
     if(finalFrameData.width>0) {
         glBindTexture (GL_TEXTURE_2D, 1);
