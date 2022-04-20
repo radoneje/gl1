@@ -554,7 +554,7 @@ void Display ()
     glutSwapBuffers ();
     glFlush ();
     }
-    catch{
+    catch(e){
         finalFrameData.width=0;
         std:cout<< "Error"<< std::endl;
     }
