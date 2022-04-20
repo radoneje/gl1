@@ -246,13 +246,15 @@ int work() {
 
         }
 
-      //  av_packet_unref(pkt);
+      //
     }
     finalFrameData_lock.lock();
         finalFrameData.width = 0;
         finalFrameData.height =0;
+
     finalFrameData_lock.unlock();
 
+    av_packet_unref(pkt);
     av_frame_free(&pRGBFrame);
     avcodec_free_context(&ctx_codec);
     avformat_close_input(&ctx_format);
