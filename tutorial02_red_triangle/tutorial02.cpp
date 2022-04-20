@@ -251,8 +251,8 @@ int work() {
     finalFrameData_lock.lock();
         finalFrameData.width = 0;
         finalFrameData.height =0;
-
     finalFrameData_lock.unlock();
+    std::this_thread::sleep_for(std::chrono::milliseconds(frameDur));
 
     av_packet_unref(pkt);
     av_frame_free(&pRGBFrame);
