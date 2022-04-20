@@ -514,6 +514,7 @@ void Reshape (int width, int height)
 
 void Display ()
 {
+    try {
     if(finalFrameData.width>0) {
         glBindTexture (GL_TEXTURE_2D, 1);
 
@@ -523,29 +524,19 @@ void Display ()
             ImageOne.image.pixels = finalFrameData.data;
            // ImageOne.Prepare(1);
         finalFrameData_lock.unlock();
-        try {
+
             gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, ImageOne.image.width,
                               ImageOne.image.height, GL_RGB, GL_UNSIGNED_BYTE,
                               ImageOne.image.pixels);
         }
-        catch{
-            finalFrameData.width=0;
-            std:cout<< "Error"<< std::endl;
-        }
+
+    }
+    catch{
+        finalFrameData.width=0;
+        std:cout<< "Error"<< std::endl;
     }
 
-    /*
-     *  finalFrameData_lock.lock();
 
-                finalFrameData.width = pRGBFrame->width;
-                finalFrameData.height = pRGBFrame->height;
-                finalFrameData.data = pRGBFrame->data[0];
-                finalFrameData.linesize = pRGBFrame->linesize[0];
-                finalFrameData.frameNumber = ctx_codec->frame_number;
-                finalFrameData_lock.unlock();
-     * */
-
-   // std::cout << "Display";
     glClearColor (0.0, 0.0, 1.0, 0.0);
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable (GL_TEXTURE_2D);
