@@ -228,7 +228,7 @@ int work() {
                 snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                 //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
 
-                std::cout << "sizeof(*p) " << sizeof(*pRGBFrame->data[0]) << std::endl;
+                std::cout << "sizeof(*p) " << sizeof(pRGBFrame->data[0]) << std::endl;
 
 
                 finalFrameData_lock.lock();
