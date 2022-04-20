@@ -227,24 +227,29 @@ int work() {
                 char buf[1024];
                 snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                 //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
-                finalFrameData_lock.lock();
 
-                finalFrameData.width = pRGBFrame->width;
-                finalFrameData.height = pRGBFrame->height;
-                finalFrameData.data = pRGBFrame->data[0];
-                finalFrameData.linesize = pRGBFrame->linesize[0];
-                finalFrameData.frameNumber = ctx_codec->frame_number;
+                finalFrameData_lock.lock();
+                    finalFrameData.width = pRGBFrame->width;
+                    finalFrameData.height = pRGBFrame->height;
+                    finalFrameData.data = pRGBFrame->data[0];
+                    finalFrameData.linesize = pRGBFrame->linesize[0];
+                    finalFrameData.frameNumber = ctx_codec->frame_number;
                 finalFrameData_lock.unlock();
+
                 //std::cout << "sizeof"<< sizeof(*pRGBFrame->data[0]) <<std::endl;
                 av_frame_unref(frame);
 
             }
-            finalFrameData.width = 0;
-            finalFrameData.height =0;
+
         }
 
         av_packet_unref(pkt);
     }
+    finalFrameData_lock.lock();
+        finalFrameData.width = 0;
+        finalFrameData.height =0;
+    finalFrameData_lock.unlock();
+
     av_frame_free(&pRGBFrame);
     avcodec_free_context(&ctx_codec);
     avformat_close_input(&ctx_format);
