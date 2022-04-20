@@ -517,6 +517,7 @@ void Display ()
     return;
     try {
     if(finalFrameData.width>0) {
+        std::cout<< "finalFrameData.data "  << sizeof(finalFrameData.data) << std::endl;
         glBindTexture (GL_TEXTURE_2D, 1);
 
         finalFrameData_lock.lock();
