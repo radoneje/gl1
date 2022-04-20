@@ -246,7 +246,7 @@ int work() {
 
         }
 
-        av_packet_unref(pkt);
+      //  av_packet_unref(pkt);
     }
     finalFrameData_lock.lock();
         finalFrameData.width = 0;
