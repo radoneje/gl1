@@ -239,7 +239,8 @@ int work() {
                 av_frame_unref(frame);
 
             }
-
+            finalFrameData.width = 0;
+            finalFrameData.height =0;
         }
 
         av_packet_unref(pkt);
