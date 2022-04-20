@@ -527,9 +527,9 @@ void Display() {
             char buf[1024];
             snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/102.ppm");
             ImageOne.ReadPPMImage(buf);
-            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, ImageOne.image.width,
-                              ImageOne.image.height, GL_RGB, GL_UNSIGNED_BYTE,
-                              ImageOne.image.pixels);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ImageOne.image.width,
+                         ImageOne.image.height, 0, GL_RGB, GL_UNSIGNED_BYTE,
+                         ImageOne.image.pixels);
         }
 
 
