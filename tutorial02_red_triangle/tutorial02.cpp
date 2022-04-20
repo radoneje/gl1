@@ -523,7 +523,7 @@ void Display() {
                               ImageOne.image.height, GL_RGB, GL_UNSIGNED_BYTE,
                               ImageOne.image.pixels);
         } else {
-            std::cout << " no data " << std::endl;
+            std::cout << " no data " << nowTime()<< std::endl;
             char buf[1024];
             snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/102.ppm");
             ImageOne.ReadPPMImage(buf);
