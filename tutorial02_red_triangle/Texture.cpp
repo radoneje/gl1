@@ -13,7 +13,6 @@ Texture::Texture ()
 void Texture::Prepare (int texN)
 {
     texName = texN;
-
     glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
 
     glBindTexture (GL_TEXTURE_2D, texName);
