@@ -55,7 +55,7 @@ static StreamContext *stream_ctx;
 struct CfinalFrameData {
     int width;
     int height;
-    unsigned char  *data;
+    unsigned char *data;
     long frameNumber;
     int linesize;
 };
@@ -223,34 +223,23 @@ int work() {
                     std::this_thread::sleep_for(std::chrono::milliseconds(thisFrameTime - nowTime()));
                 }
                 lastFrameTime = nowTime();
-
                 char buf[1024];
                 snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/%s%03d.ppm", "", ctx_codec->frame_number);
                 //ppm_save(pRGBFrame->data[0], pRGBFrame->linesize[0], pRGBFrame->width, pRGBFrame->height, buf);
-
-                std::cout << "sizeof(*p) " << (&pRGBFrame->data[0]) << std::endl;
-
-
                 finalFrameData_lock.lock();
-                    finalFrameData.width = pRGBFrame->width;
-                    finalFrameData.height = pRGBFrame->height;
-                    finalFrameData.data = pRGBFrame->data[0];
-                    finalFrameData.linesize = pRGBFrame->linesize[0];
-                    finalFrameData.frameNumber = ctx_codec->frame_number;
+                finalFrameData.width = pRGBFrame->width;
+                finalFrameData.height = pRGBFrame->height;
+                finalFrameData.data = pRGBFrame->data[0];
+                finalFrameData.linesize = pRGBFrame->linesize[0];
+                finalFrameData.frameNumber = ctx_codec->frame_number;
                 finalFrameData_lock.unlock();
-
-                //std::cout << "sizeof"<< sizeof(*pRGBFrame->data[0]) <<std::endl;
-             //   av_frame_unref(frame);
-
             }
 
         }
-
-      //
     }
     finalFrameData_lock.lock();
-        finalFrameData.width = 0;
-        finalFrameData.height =0;
+    finalFrameData.width = 0;
+    finalFrameData.height = 0;
     finalFrameData_lock.unlock();
     std::this_thread::sleep_for(std::chrono::milliseconds(frameDur));
 
@@ -258,7 +247,6 @@ int work() {
     av_frame_free(&pRGBFrame);
     avcodec_free_context(&ctx_codec);
     avformat_close_input(&ctx_format);
-
 
     return 0;
 }
@@ -401,25 +389,23 @@ int mainbak(void) {
         finalFrameData_lock.unlock();
         // Get a handle for our "myTextureSampler" uniform
         GLuint TextureID;
-        if(finalFrameData.width==0  ) {
+        if (finalFrameData.width == 0) {
             TextureID = glGetUniformLocation(programID, "myTextureSampler");
             glBindTexture(GL_TEXTURE_2D, Texture);
+        } else {
+
+
+
+
+            //  TextureID = glGetUniformLocation(programID, "myTextureSampler");
+            // glBindTexture(GL_TEXTURE_2D, Texture);
+
+            /* glGenTextures(1, &TextureID);
+             glBindTexture(GL_TEXTURE_2D, Texture);
+             int dt[12]={255,255,255,255,255,255,255,255,255,255,255,255};
+             glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, finalFrameData.width, finalFrameData.height, 0, GL_BGR, GL_UNSIGNED_BYTE, finalFrameData.data);
+         */
         }
-        else
-        {
-
-
-
-
-          //  TextureID = glGetUniformLocation(programID, "myTextureSampler");
-           // glBindTexture(GL_TEXTURE_2D, Texture);
-
-           /* glGenTextures(1, &TextureID);
-            glBindTexture(GL_TEXTURE_2D, Texture);
-            int dt[12]={255,255,255,255,255,255,255,255,255,255,255,255};
-            glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, finalFrameData.width, finalFrameData.height, 0, GL_BGR, GL_UNSIGNED_BYTE, finalFrameData.data);
-        */
-            }
         // Bind our texture in Texture Unit 0
 
         glActiveTexture(GL_TEXTURE0);
@@ -487,116 +473,109 @@ int mainbak(void) {
 
     return 0;
 }
+
 ///////////////
 const float fMinX = -5.0, fMinY = -5.0, fNearZ = 1.0,
-        fMaxX = 5.0 , fMaxY = 5.0 , fFarZ = 10.0;
+        fMaxX = 5.0, fMaxY = 5.0, fFarZ = 10.0;
 
-Texture ImageOne ;
+Texture ImageOne;
 
-void Init ()
-{
-    glClearColor (0.0, 0.0, 0.0, 0.0);
-    glEnable (GL_DEPTH_TEST);
+void Init() {
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glEnable(GL_DEPTH_TEST);
 
-    glGenTextures (1, &ImageOne.texName);
-
+    glGenTextures(1, &ImageOne.texName);
 
     char buf[1024];
     snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/102.ppm");
-
     ImageOne.ReadPPMImage(buf);
 
 }
 
-void Reshape (int width, int height)
-{
-    std::cout << "reshape"<< width << " " << height <<std::endl ;
-    ImageOne.Prepare(1) ;
-    glViewport (0, 0, width, height);
+void Reshape(int width, int height) {
+    std::cout << "reshape" << width << " " << height << std::endl;
+    ImageOne.Prepare(1);
+    glViewport(0, 0, width, height);
 
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity ();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
 
-    glOrtho (fMinX, fMaxX, fMinY, fMaxY, fNearZ, fFarZ);
+    glOrtho(fMinX, fMaxX, fMinY, fMaxY, fNearZ, fFarZ);
 
-    glMatrixMode (GL_MODELVIEW);
-    glLoadIdentity ();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
-void Display ()
-{
+void Display() {
 
     try {
-    if(finalFrameData.width>0) {
-        std::cout<< "finalFrameData.data "  << (sizeof(finalFrameData.data)/sizeof(*finalFrameData.data)) << std::endl;
-        glBindTexture (GL_TEXTURE_2D, 1);
-
-        finalFrameData_lock.lock();
+        glBindTexture(GL_TEXTURE_2D, 1);
+        if (finalFrameData.width > 0) {
+            finalFrameData_lock.lock();
             ImageOne.image.width = finalFrameData.width;
             ImageOne.image.height = finalFrameData.height;
             ImageOne.image.pixels = finalFrameData.data;
-           // ImageOne.Prepare(1);
-        finalFrameData_lock.unlock();
+            // ImageOne.Prepare(1);
+            finalFrameData_lock.unlock();
 
             gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, ImageOne.image.width,
                               ImageOne.image.height, GL_RGB, GL_UNSIGNED_BYTE,
                               ImageOne.image.pixels);
+        } else {
+            std::cout << " no data " << std::endl;
+            char buf[1024];
+            snprintf(buf, sizeof(buf), "/var/www/video-broadcast.space/102.ppm");
+            ImageOne.ReadPPMImage(buf);
         }
-    else{
-        std::cout<< " no data "  << std::endl;
+
+
+        glClearColor(0.0, 0.0, 1.0, 0.0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_TEXTURE_2D);
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+        glBindTexture(GL_TEXTURE_2D, ImageOne.texName);
+
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0);
+        glVertex3f(-5, 5, -8);
+        glTexCoord2f(0, 1);
+        glVertex3f(-5, -5, -8);
+        glTexCoord2f(1, 1);
+        glVertex3f(5, -5, -8);
+        glTexCoord2f(1, 0);
+        glVertex3f(5, 5, -8);
+        glEnd();
+        glDisable(GL_TEXTURE_2D);
+
+        glutSwapBuffers();
+        glFlush();
     }
-
-
-
-
-    glClearColor (0.0, 0.0, 1.0, 0.0);
-    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable (GL_TEXTURE_2D);
-    glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-    glBindTexture (GL_TEXTURE_2D, ImageOne.texName);
-
-    glBegin(GL_QUADS);
-    glTexCoord2f(0,0);
-    glVertex3f(-5,5,-8);
-    glTexCoord2f(0,1);
-    glVertex3f(-5,-5,-8);
-    glTexCoord2f(1,1);
-    glVertex3f(5,-5,-8);
-    glTexCoord2f(1,0);
-    glVertex3f(5,5,-8);
-    glEnd();
-    glDisable(GL_TEXTURE_2D);
-
-    glutSwapBuffers ();
-    glFlush ();
-    }
-    catch (const std::exception& ex) {
-        std::cout<< "Error 1"  << std::endl;
-    } catch (const std::string& ex) {
-        std::cout<< "Error "<< ex <<std::endl;
+    catch (const std::exception &ex) {
+        std::cout << "Error 1" << std::endl;
+    } catch (const std::string &ex) {
+        std::cout << "Error " << ex << std::endl;
     } catch (...) {
-        std::cout<< "Error"<< std::endl;
+        std::cout << "Error" << std::endl;
     }
 
 }
 
-int main (int argc, char **argv)
-{
+int main(int argc, char **argv) {
     std::thread thr(av);
 
     // init GLUT and create window
-    glutInit (&argc, argv);
-    glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowPosition(-1,-1);
-    glutInitWindowSize(1280,720);
-    glutCreateWindow ("OpenGL - Rotating Cubes");
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowPosition(-1, -1);
+    glutInitWindowSize(1280, 720);
+    glutCreateWindow("OpenGL - Rotating Cubes");
 
     Init();
 
     // register callbacks
-    glutDisplayFunc (Display);
-    glutReshapeFunc (Reshape);
-    glutIdleFunc (Display);     // used in animation
+    glutDisplayFunc(Display);
+    glutReshapeFunc(Reshape);
+    glutIdleFunc(Display);     // used in animation
 
     // enter GLUT event processing cycle
     glutMainLoop();
