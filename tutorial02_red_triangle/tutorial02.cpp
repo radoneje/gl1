@@ -517,7 +517,7 @@ void Display ()
     return;
     try {
     if(finalFrameData.width>0) {
-        std::cout<< "finalFrameData.data "  << sizeof(finalFrameData.data) << std::endl;
+        std::cout<< "finalFrameData.data "  << (sizeof(finalFrameData.data)/sizeof(*finalFrameData.data)) << std::endl;
         glBindTexture (GL_TEXTURE_2D, 1);
 
         finalFrameData_lock.lock();
@@ -531,6 +531,9 @@ void Display ()
                               ImageOne.image.height, GL_RGB, GL_UNSIGNED_BYTE,
                               ImageOne.image.pixels);
         }
+    else{
+        std::cout<< " no data "  << std::endl;
+    }
 
 
 
